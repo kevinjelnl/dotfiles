@@ -11,6 +11,9 @@ if [ -f ~/.bashrc_local_before ]; then
     source ~/.bashrc_local_before
 fi
 
+# settings
+source ~/.bash/settings.bash
+
 # load aliases
 source ~/.shell/aliases.sh
 

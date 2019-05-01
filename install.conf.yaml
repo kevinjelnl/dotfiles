@@ -9,8 +9,9 @@
     ~/.bash_profile:
     ~/.bashrc:
     ~/.dotfiles: ''
-    ~/.tmux.conf: tmux.conf
+    ~/.shell:
     ~/.gitignore_global:
+    ~/.tmux.conf: tmux.conf
 
 
 - shell:

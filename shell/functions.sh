@@ -15,8 +15,13 @@ function md() {
 }
 
 # update dotfiles
-function dfu() {
-    (
-        cd ~/.dotfiles && git pull --ff-only && ./install -q
-    )
+# function dfu() {
+#     (
+#         cd ~/.dotfiles && git pull --ff-only && ./install -q
+#     )
+# }
+
+function dfu_local() {
+    cd ~/dotfiles && ./install -q && source ~/.bashrc
 }
+

@@ -6,7 +6,7 @@ if [[ "$(uname)" == "Linux" ]]; then
     alias pbpaste='xclip -selection clipboard -o'
     alias diskspace='du -h | sort -rn | more'
     alias update='sudo apt-get update && sudo apt-get upgrade'
-elif [[ "$(uname)" == "Darwin" ]] then
+elif [[ "$(uname)" == "Darwin" ]]; then
     alias diskspace='du -hxs | sort -rn'
     alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup;'
 fi
