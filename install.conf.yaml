@@ -2,7 +2,7 @@
     link:
       relink: true
 
-- clean: ['~']
+- clean: ['~', '~/.vim']
 
 - link:
     ~/.bash:
@@ -12,6 +12,8 @@
     ~/.shell:
     ~/.gitignore_global:
     ~/.tmux.conf: tmux.conf
+    ~/.vim: vim
+    ~/.vimrc: vimrc
 
 
 - shell:
