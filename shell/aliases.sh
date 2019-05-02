@@ -11,6 +11,11 @@ elif [[ "$(uname)" == "Darwin" ]]; then
     alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup;'
 fi
 
+# use neovim when available
+if type nvim > /dev/null 2>&1; then
+  alias vim='nvim'
+fi
+
 # list all ze things
 alias ll="ls -lha"
 
