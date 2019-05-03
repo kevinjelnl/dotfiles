@@ -1,17 +1,12 @@
-# kevinjel's dotfiles
----
-This repo contains my dotfiles!
+# ~/. 
+MORE DOTS!
 
-### Dotfile management
----
-Dotfile management via: https://github.com/anishathalye/dotbot
-<i>Dotbot makes installing your dotfiles as easy as git clone $url && cd dotfiles && ./install, even on a freshly installed system!</i>
+## Dotfile management
+Dotfile management via: https://github.com/anishathalye/dotbot 
+``` bash
+git clone https://github.com/kevinjelnl/dotfiles.git && cd dotfiles && ./install
+```
 
-### Todo
----
-Add vim settings and plugins: https://vimawesome.com/
-
-#### Used repos
----
+## Inspiration 
 - @mathiasbynens https://github.com/mathiasbynens/dotfiles
-- @anishathalye https://github.com/anishathalye/dotfiles - https://www.anishathalye.com/2014/08/03/managing-your-dotfiles/
+- @anishathalye https://github.com/anishathalye/dotfiles 
