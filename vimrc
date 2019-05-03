@@ -10,8 +10,6 @@ set background=dark " for the dark version
 colorscheme one
 let g:airline_theme='one'
 
-
-
 " => NERDtree settings
 " open on startup
 autocmd vimenter * NERDTree
@@ -31,9 +29,7 @@ set incsearch
 " show matching brackets
 set showmatch 
 
-
 " => Text, tab and indent related
-
 " Use spaces instead of tabs
 set expandtab
 
@@ -51,7 +47,6 @@ set tw=500
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
-set mouse=a
+set mouse=a "enable mouse mode (:
 
-set background=dark
 
