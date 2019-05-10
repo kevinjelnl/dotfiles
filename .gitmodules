@@ -30,4 +30,4 @@
 	url = https://github.com/Yggdroot/indentLine.git
 [submodule "font/SauceCodePro"]
 	path = font/SauceCodePro
-	url = git@github.com:kevinjelnl/Sauce-Code-Pro.git
+	url = https://github.com/kevinjelnl/Sauce-Code-Pro.git
