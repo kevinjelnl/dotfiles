@@ -1,2 +1,3 @@
 *.DS_Store
 vim/init.vim
+*.lock

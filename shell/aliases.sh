@@ -35,6 +35,9 @@ if type nvim > /dev/null 2>&1; then
   alias vim='nvim'
 fi
 
+# use unicode in tmux
+alias tmux='tmux -u'
+
 # list all ze things
 alias ll="ls -lha"
 

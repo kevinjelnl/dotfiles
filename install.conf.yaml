@@ -17,6 +17,6 @@
     ~/.config/nvim: vim
     ~/.config/nvim/init.vim: vimrc
 
-
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
+  - [bash ./font/install_font.sh]

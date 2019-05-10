@@ -14,13 +14,7 @@ function md() {
     mkdir -p "$@" && cd "$_";
 }
 
-# update dotfiles
-# function dfu() {
-#     (
-#         cd ~/.dotfiles && git pull --ff-only && ./install -q
-#     )
-# }
-
+# run the dotbot installer
 function dfu_local() {
     cd ~/dotfiles && ./install -q && source ~/.bashrc
 }
