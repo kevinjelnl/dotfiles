@@ -33,6 +33,13 @@ set lbr " linebreak
 set tw=500 " on 500 chars
 set mouse=a "enable mouse mode (:
 
+set rtp+=/usr/local/opt/fzf "use FZF in vim
+
+" use :find <something> to find items
+filetype plugin on
+set path+=**
+set wildmenu
+
 " ++ plugins ++
 " set the plugin path
 set packpath+=~/.vim/pack/
@@ -46,14 +53,10 @@ map <C-n> :NERDTreeToggle<CR>
 " close NERDTree if it is the last window
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-
 " prettify the menu
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
-" set the colors of the folders to orange
-" :hi Directory guifg=#d78700 ctermfg=172
-" highlight NERDTreeCWD ctermfg=DarkGreen
 " set the nerdtree hsplit to darkgrey for a clean divider
  highlight VertSplit ctermbg=DarkGrey
  let g:NERDTreeFileExtensionHighlightFullName = 1
@@ -67,8 +70,4 @@ highlight GitGutterAdd ctermfg=green
 highlight GitGutterChange ctermfg=yellow
 highlight GitGutterDelete ctermfg=red
 highlight GitGutterChangeDelete ctermfg=yellow
-
-" gutentag
-let g:gutentags_project_root = ['.git', '.svn', '.root', '.hg', '.project']
-let g:gutentags_ctags_tagfile = '.tags'
 

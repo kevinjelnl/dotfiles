@@ -16,9 +16,6 @@
 [submodule "vim/pack/git-plugins/start/vim-devicons"]
 	path = vim/pack/git-plugins/start/vim-devicons
 	url = https://github.com/ryanoasis/vim-devicons.git
-[submodule "vim/pack/git-plugins/start/vim-gutentags"]
-	path = vim/pack/git-plugins/start/vim-gutentags
-	url = https://github.com/ludovicchabant/vim-gutentags.git
 [submodule "vim/pack/git-plugins/start/vimCompletesMe"]
 	path = vim/pack/git-plugins/start/vimCompletesMe
 	url = https://github.com/ajh17/VimCompletesMe.git

@@ -24,6 +24,7 @@ elif [[ "$(uname)" == "Darwin" ]]; then
     # macosx
     alias diskspace='du -hxs | sort -rn'
     alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup;'
+    alias cat='bat'
 
 else
     # ...
@@ -37,6 +38,7 @@ fi
 
 # use unicode in tmux
 alias tmux='tmux -u'
+alias tma='tmux attach -t' 
 
 # list all ze things
 alias ll="ls -lha"
@@ -63,4 +65,4 @@ alias mv='mv -i'
 
 # an incognito bash without history (; 
 alias incognito='bash --init-file <(echo ". ~/.bashrc; unset HISTFILE")'
-
+alias top='htop' # set top to htop

@@ -16,7 +16,9 @@
     ~/.vimrc: vimrc
     ~/.config/nvim: vim
     ~/.config/nvim/init.vim: vimrc
+    ~/.bat.conf: bat.conf
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
   - [bash ./font/install_font.sh]
+  - [rsync -a ./kitty.conf ~/.config/kitty/kitty.conf] 
