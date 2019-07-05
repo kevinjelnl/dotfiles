@@ -1,0 +1,37 @@
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/core"
+tap "homebrew/services"
+
+#binaries
+brew "mas"
+brew "ansible"
+brew "git"
+brew "go"
+brew "htop"
+brew "hugo"
+brew "neovim"
+brew "tmux"
+brew "tree"
+brew "wget"
+brew "bat"
+brew "watch"
+
+#brew apps
+cask "balenaetcher"
+cask "caffeine"
+cask "docker"
+cask "flux"
+cask "keka"
+cask "kitty"
+cask "sync"
+cask "notion"
+cask "spotify"
+cask "visual-studio-code"
+cask "little-snitch"
+cask "Micro-Snitch"
+cask "brave-browser"
+cask "microsoft-office"
+
+#mac apps
+mas '1Password 7', id: 1333542190 

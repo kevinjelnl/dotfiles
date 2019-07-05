@@ -39,9 +39,11 @@ fi
 # use unicode in tmux
 alias tmux='tmux -u'
 alias tma='tmux attach -t' 
+alias tmk='tmux kill-session -t' 
 
 # list all ze things
 alias ll="ls -lha"
+alias wls="watch ls -lhat"
 
 # cd navigation
 alias ..='cd ..'

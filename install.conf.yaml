@@ -4,6 +4,12 @@
 
 - clean: ['~', '~/.vim']
 
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
+  - [bash ./font/install_font.sh]
+  - [rsync -a ./kitty.conf ~/.config/kitty/kitty.conf] 
+  - [mkdir -p ~/.config/bat]
+
 - link:
     ~/.bash:
     ~/.bash_profile:
@@ -18,7 +24,3 @@
     ~/.config/nvim/init.vim: vimrc
     ~/.bat.conf: bat.conf
 
-- shell:
-  - [git submodule update --init --recursive, Installing submodules]
-  - [bash ./font/install_font.sh]
-  - [rsync -a ./kitty.conf ~/.config/kitty/kitty.conf] 
