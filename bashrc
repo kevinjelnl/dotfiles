@@ -22,6 +22,7 @@ source ~/.bash/prompt.bash
 
 # FZF settings
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+eval "$(thefuck --alias)" #soz mom
 
 shopt -s histappend # append to history file
 shopt -s nocaseglob; # case-insensitive globbing (used in pathname expansion)
