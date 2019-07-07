@@ -22,14 +22,16 @@ source ~/.bash/prompt.bash
 
 # FZF settings
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+bind "$(bind -s | grep fzf_history | sed 's/r/f/')"
+# make bash ignore cases;
+bind 'set completion-ignore-case on'
+
 eval "$(thefuck --alias)" #soz mom
 
 shopt -s histappend # append to history file
 shopt -s nocaseglob; # case-insensitive globbing (used in pathname expansion)
 shopt -s cdspell; # autocorrect typos in path names when using `cd`
-
-# make bash ignore cases;
-bind 'set completion-ignore-case on'
 
 # allow local customizations in the ~/.shell_local_after file
 if [ -f ~/.shell_local_after ]; then
