@@ -45,8 +45,6 @@ set wildmenu
 set packpath+=~/.vim/pack/
 
 " NERDTree settings 
-autocmd StdinReadPre * let s:std_in=1 " if nofile is given show NERDTree
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " map ctrl + n to open NERDTree
 map <C-n> :NERDTreeToggle<CR>
 
@@ -58,9 +56,7 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
 " set the nerdtree hsplit to darkgrey for a clean divider
- highlight VertSplit ctermbg=DarkGrey
- let g:NERDTreeFileExtensionHighlightFullName = 1
-
+highlight VertSplit ctermbg=DarkGrey
 
 " gitGutter
 " clear the color settings and use the provided ones
