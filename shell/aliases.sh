@@ -22,10 +22,10 @@ if [[ "$(uname)" == "Linux" ]]; then
 
 elif [[ "$(uname)" == "Darwin" ]]; then
     # macosx
-    dotfileLocation="~/dotfiles"
+    dotfileLocation="$HOME/dotfiles"
     alias diskspace='du -hxs | sort -rn'
-    alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; brew cask upgrade'
-    alias mkBrewfile='rm $(dotfileLocation)/brew/Brewfile && brew bundle dump && mv ./Brewfile $(dotfileLocation)/brew/'
+    alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; brew cask upgrade && mkBrewfile'
+    alias mkBrewfile='rm $dotfileLocation/brew/Brewfile && brew bundle dump && mv ./Brewfile $dotfileLocation/brew/'
     alias cat='bat'
 
 else
