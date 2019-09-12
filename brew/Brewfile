@@ -3,11 +3,11 @@ tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/services"
 brew "python"
-brew "ansible"
+brew "ansible", link: false
 brew "bat"
 brew "go"
 brew "dep"
-brew "docker"
+brew "docker", link: false
 brew "fzf"
 brew "git"
 brew "htop"
