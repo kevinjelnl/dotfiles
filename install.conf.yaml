@@ -1,21 +1,21 @@
 - defaults:
     link:
+      create: true
       relink: true
 
-- clean: ['~', '~/.vim']
-
 - shell:
-  - [git submodule update --init --recursive, Installing submodules]
-  - [bash ./font/install_font.sh]
-  - [rsync -a ./kitty.conf ~/.config/kitty/kitty.conf] 
-  - [mkdir -p ~/.config/bat]
+    - [git submodule update --init --recursive, Installing submodules]
+    - [zsh ./font/install_font.sh]
+    - [rsync -a ./kitty.conf ~/.config/kitty/kitty.conf]
+    - [mkdir -p ~/.config/bat]
 
 - link:
-    ~/.bash:
-    ~/.bash_profile:
-    ~/.bashrc:
-    ~/.dotfiles: ''
-    ~/.shell:
+    ~/.zshrc: zsh/zshrc
+    ~/.oh-my-zsh/themes/kevinjel.zsh-theme : zsh/kevinjel.zsh-theme
+    ~/.config/zsh/setopt.zsh: zsh/setopt.zsh
+    ~/.config/zsh/aliases.zsh: zsh/aliases.zsh
+    ~/.config/zsh/functions.zsh: zsh/functions.zsh
+    ~/.dotfiles: ""
     ~/.gitignore_global:
     ~/.tmux.conf: tmux.conf
     ~/.vim: vim
@@ -24,3 +24,4 @@
     ~/.config/nvim/init.vim: vimrc
     ~/.bat.conf: bat.conf
 
+- clean: ["~", "~/.vim", ~/.config/]
