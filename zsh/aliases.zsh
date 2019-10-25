@@ -1,10 +1,13 @@
 # custom aliases
 
 alias diskspace="du -hxs | sort -rn"
+
+dotfileLocation="$HOME/dotfiles"
 alias update="brew update; brew upgrade; brew cleanup; brew cask upgrade && mkBrewfile"
 alias mkBrewfile="rm $dotfileLocation/brew/Brewfile && brew bundle dump && mv ./Brewfile $dotfileLocation/brew/"
 alias cat="bat"
 
+# choose nvim when available
 if type nvim > /dev/null 2>&1; then
   alias vim="nvim"
 fi
@@ -39,6 +42,7 @@ alias cp="cp -i"
 alias mv="mv -i"
 
 alias top="htop" # set top to htop
+
 # when doing local git init then try to commit it, it gives errors
 # this fixes that issue
 alias gnew="git pull --allow-unrelated-histories origin master"
