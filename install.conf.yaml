@@ -23,5 +23,6 @@
     ~/.config/nvim: vim
     ~/.config/nvim/init.vim: vimrc
     ~/.bat.conf: bat.conf
+    ~/.tmux/plugins/tpm: tmux-plugins
 
 - clean: ["~", "~/.vim", ~/.config/]

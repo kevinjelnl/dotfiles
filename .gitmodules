@@ -4,9 +4,6 @@
 [submodule "vim/pack/git-plugins/start/nerdtree"]
 	path = vim/pack/git-plugins/start/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
-[submodule "vim/pack/git-plugins/start/vim-gitgutter"]
-	path = vim/pack/git-plugins/start/vim-gitgutter
-	url = https://github.com/airblade/vim-gitgutter.git
 [submodule "vim/pack/git-plugins/start/vim-airline"]
 	path = vim/pack/git-plugins/start/vim-airline
 	url = https://github.com/vim-airline/vim-airline.git
@@ -16,9 +13,6 @@
 [submodule "vim/pack/git-plugins/start/vim-devicons"]
 	path = vim/pack/git-plugins/start/vim-devicons
 	url = https://github.com/ryanoasis/vim-devicons.git
-[submodule "vim/pack/git-plugins/start/vimCompletesMe"]
-	path = vim/pack/git-plugins/start/vimCompletesMe
-	url = https://github.com/ajh17/VimCompletesMe.git
 [submodule "vim/pack/git-plugins/start/vim-code-dark"]
 	path = vim/pack/git-plugins/start/vim-code-dark
 	url = https://github.com/tomasiser/vim-code-dark.git
@@ -28,3 +22,6 @@
 [submodule "font/SauceCodePro"]
 	path = font/SauceCodePro
 	url = https://github.com/kevinjelnl/Sauce-Code-Pro.git
+[submodule "tmux-plugins"]
+	path = tmux-plugins
+	url = https://github.com/tmux-plugins/tpm
