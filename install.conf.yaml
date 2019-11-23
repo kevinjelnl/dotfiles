@@ -11,7 +11,7 @@
 
 - link:
     ~/.zshrc: zsh/zshrc
-    ~/.oh-my-zsh/themes/kevinjel.zsh-theme : zsh/kevinjel.zsh-theme
+    ~/.oh-my-zsh/themes/kevinjel.zsh-theme: zsh/kevinjel.zsh-theme
     ~/.config/zsh/setopt.zsh: zsh/setopt.zsh
     ~/.config/zsh/aliases.zsh: zsh/aliases.zsh
     ~/.config/zsh/functions.zsh: zsh/functions.zsh
@@ -24,5 +24,8 @@
     ~/.config/nvim/init.vim: vimrc
     ~/.bat.conf: bat.conf
     ~/.tmux/plugins/tpm: tmux-plugins
+
+    ~/projects: ~/Sync/projects
+    ~/.history: ~/Sync/workspace/terminal/.history
 
 - clean: ["~", "~/.vim", ~/.config/]
