@@ -51,7 +51,6 @@ cask "spotify"
 cask "staruml"
 cask "sync"
 cask "teensy"
-cask "ubersicht"
 cask "visual-studio-code"
 mas "1Password 7", id: 1333542190
 mas "Microsoft Remote Desktop", id: 1295203466
