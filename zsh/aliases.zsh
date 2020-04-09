@@ -3,8 +3,7 @@
 alias diskspace="du -hxs | sort -rn"
 
 dotfileLocation="$HOME/dotfiles"
-alias update="brew update; brew upgrade; brew cleanup; brew cask upgrade && mkBrewfile"
-alias mkBrewfile="rm $dotfileLocation/brew/Brewfile && brew bundle dump && mv ./Brewfile $dotfileLocation/brew/"
+alias update="sudo apt-get update && sudo apt-get dist-upgrade"
 alias cat="bat"
 
 # choose nvim when available
@@ -20,6 +19,7 @@ alias tmk="tmux kill-session -t"
 # list all ze things
 alias ll="ls -lha"
 alias wls="watch ls -lhat"
+alias pbcopy='xclip -selection clipboard'
 
 # cd navigation
 alias ..="cd .."
