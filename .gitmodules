@@ -19,9 +19,6 @@
 [submodule "vim/pack/git-plugins/start/indentLine"]
 	path = vim/pack/git-plugins/start/indentLine
 	url = https://github.com/Yggdroot/indentLine.git
-[submodule "font/SauceCodePro"]
-	path = font/SauceCodePro
-	url = https://github.com/kevinjelnl/Sauce-Code-Pro.git
 [submodule "tmux-plugins"]
-	path = tmux-plugins
+	path = tmux/tmux-plugins
 	url = https://github.com/tmux-plugins/tpm

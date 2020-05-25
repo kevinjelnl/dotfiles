@@ -6,8 +6,6 @@
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
     - [rm ~/.zshrc]
-#    - [zsh ./font/install_font.sh]
-#    - [rsync -a ./kitty.conf ~/.config/kitty/kitty.conf]
     - [mkdir -p ~/.config/bat]
     - [mkdir -p ~/.config/alacritty]
 
