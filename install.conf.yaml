@@ -5,27 +5,30 @@
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
-    - [zsh ./font/install_font.sh]
-    - [rsync -a ./kitty.conf ~/.config/kitty/kitty.conf]
+    - [rm ~/.zshrc]
+#    - [zsh ./font/install_font.sh]
+#    - [rsync -a ./kitty.conf ~/.config/kitty/kitty.conf]
     - [mkdir -p ~/.config/bat]
+    - [mkdir -p ~/.config/alacritty]
 
 - link:
+    ~/.dotfiles: ""
+    ~/.config/git/ignore: gitignore_global
+    ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
+    
+    
     ~/.zshrc: zsh/zshrc
     ~/.oh-my-zsh/themes/kevinjel.zsh-theme: zsh/kevinjel.zsh-theme
     ~/.config/zsh/setopt.zsh: zsh/setopt.zsh
     ~/.config/zsh/aliases.zsh: zsh/aliases.zsh
     ~/.config/zsh/functions.zsh: zsh/functions.zsh
-    ~/.dotfiles: ""
-    ~/.gitignore_global:
-    ~/.tmux.conf: tmux.conf
+    ~/.bat.conf: zsh/bat.conf
+    
     ~/.vim: vim
-    ~/.vimrc: vimrc
+    ~/.vimrc: vim/vimrc
     ~/.config/nvim: vim
-    ~/.config/nvim/init.vim: vimrc
-    ~/.bat.conf: bat.conf
-    ~/.tmux/plugins/tpm: tmux-plugins
-
-    ~/projects: ~/Sync/projects
-    ~/.history: ~/Sync/workspace/terminal/.history
+    ~/.config/nvim/init.vim: vim/vimrc
+    ~/.tmux.conf: tmux/tmux.conf
+    ~/.tmux/plugins/tpm: tmux/tmux-plugins
 
 - clean: ["~", "~/.vim", ~/.config/]

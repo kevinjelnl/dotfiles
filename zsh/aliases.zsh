@@ -4,7 +4,7 @@ alias diskspace="du -hxs | sort -rn"
 
 dotfileLocation="$HOME/dotfiles"
 alias update="sudo apt-get update && sudo apt-get dist-upgrade"
-alias cat="bat"
+alias cat="batcat"
 
 # choose nvim when available
 if type nvim > /dev/null 2>&1; then

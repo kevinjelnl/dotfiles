@@ -1,6 +1,6 @@
 [include]
 	# in this file we house the local user settings
-	# name = username
+	name = kevinjel
 	# email = email
 	path= ~/.gitconfig.local
 
