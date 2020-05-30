@@ -11,7 +11,8 @@
 
 - link:
     ~/.dotfiles: ""
-    ~/.config/git/ignore: gitignore_global
+    ~/.config/git/ignore: git/gitignore_global
+    ~/.gitconfig: git/gitconfig
     ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
     
     

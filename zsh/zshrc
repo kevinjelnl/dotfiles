@@ -98,11 +98,14 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$(go env GOPATH)/bin
 export TERM=xterm-256color
 
+
 # Load zsh files
 for i in $HOME/.config/zsh/*; do;
     test -r "$i" && source "$i"
 done
 
+# use snapd from the commandline in zsh
+emulate sh -c 'source /etc/profile.d/apps-bin-path.sh'
 
 
 

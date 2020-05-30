@@ -1,10 +1,15 @@
 # custom aliases
 
+## to run a single role
+alias runtag="cd /home/kevinjel/fresh_pop && ./scripts/3a-run_ansible_role.sh"
+
+
 alias diskspace="du -hxs | sort -rn"
 
-dotfileLocation="$HOME/dotfiles"
+alias dotfileLocation="$HOME/dotfiles"
 alias update="sudo apt-get update && sudo apt-get dist-upgrade"
 alias cat="batcat"
+alias docker="sudo docker"
 
 # choose nvim when available
 if type nvim > /dev/null 2>&1; then

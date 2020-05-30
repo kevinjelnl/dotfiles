@@ -1,8 +1,5 @@
-[include]
-	# in this file we house the local user settings
-	name = kevinjel
-	# email = email
-	path= ~/.gitconfig.local
+[core]
+	excludesfile= ~/.config/git/ignore
 
 [color]
 	ui = auto
@@ -17,7 +14,7 @@
 [color "diff"]
 	meta = yellow bold
 	frag = magenta bold
-	old = red bold
+	old = red 
 	new = green bold
 
 [color "status"]
