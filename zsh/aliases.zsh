@@ -51,3 +51,8 @@ alias top="htop" # set top to htop
 # when doing local git init then try to commit it, it gives errors
 # this fixes that issue
 alias gnew="git pull --allow-unrelated-histories origin master"
+
+# Start Cryptomator from the terminal
+alias crp="/usr/bin/nohup ~/Apps/cryptomator.AppImage --minimized > /dev/null &"
+# Start outlook in chromium kiosk
+alias mail="/usr/bin/nohup /snap/bin/chromium --kiosk https://outlook.office.com/mail/inbox > /dev/null &"

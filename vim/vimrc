@@ -1,17 +1,14 @@
-" colors settings
+" https://shapeshed.com/vim-packages/#removing-a-package
+set encoding=utf8
 colorscheme codedark
 syntax on
-set guifont=*
 " highlight active window in statusline
 highlight StatusLineNC cterm=bold ctermfg=white ctermbg=darkgray
-let g:airline_theme='codedark' " airline colorscheme
-let g:indentLine_setColors = 0 " dont use stock indentlines colors
 
 set cursorline " highlight the cursorline
 nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR>
 
 " editor settings
-set encoding=UTF-8
 set number " use numbers
 set relativenumber " make them relative
 let g:indentLine_conceallevel = 1
@@ -44,6 +41,7 @@ set wildmenu
 " set the plugin path
 set packpath+=~/.vim/pack/
 
+
 " NERDTree settings 
 " map ctrl + n to open NERDTree
 map <C-n> :NERDTreeToggle<CR>
@@ -61,9 +59,13 @@ highlight VertSplit ctermbg=DarkGrey
 " gitGutter
 " clear the color settings and use the provided ones
 let g:gitgutter_override_sign_column_highlight = 0
+" colors settings
 highlight SignColumn guibg=DarkGreen
 highlight GitGutterAdd ctermfg=green
 highlight GitGutterChange ctermfg=yellow
 highlight GitGutterDelete ctermfg=red
 highlight GitGutterChangeDelete ctermfg=yellow
 
+let g:airline_theme="distinguished" " airline colorscheme
+let g:airline_powerline_fonts = 1
+let g:indentLine_setColors = 0 " dont use stock indentlines colors

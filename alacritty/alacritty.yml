@@ -17,11 +17,22 @@ window:
   # - none: neither borders nor title bar
   decorations: none
 
+# Font configuration
 font:
   # Point size of the font
   size: 10.0
+  # Normal (roman) font face
+  normal:
+   # Font family
+    #
+    # Default:
+    #   - (macOS) Menlo
+    #   - (Linux/BSD) monospace
+    #   - (Windows) Consolas
+    family: FiraMono for Powerline
 
-# Colors (One Dark)
+
+# Colors (One Dar)
 colors:
   # Default colors
   primary:
