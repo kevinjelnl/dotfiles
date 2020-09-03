@@ -15,7 +15,6 @@
     ~/.gitconfig: git/gitconfig
     ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
     
-    
     ~/.zshrc: zsh/zshrc
     ~/.oh-my-zsh/themes/kevinjel.zsh-theme: zsh/kevinjel.zsh-theme
     ~/.config/zsh/setopt.zsh: zsh/setopt.zsh

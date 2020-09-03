@@ -1,13 +1,8 @@
 # custom aliases
-
-## to run a single role
-alias runtag="cd /home/kevinjel/fresh_pop && ./scripts/3a-run_ansible_role.sh"
-
-
 alias diskspace="du -hxs | sort -rn"
 
 alias dotfileLocation="$HOME/dotfiles"
-alias update="sudo apt-get update && sudo apt-get dist-upgrade"
+alias update="sudo apt-get update -y && sudo apt-get dist-upgrade -y && sudo apt autoremove -y"
 alias cat="batcat"
 alias docker="sudo docker"
 
@@ -20,6 +15,7 @@ fi
 alias tmux="tmux -u"
 alias tma="tmux attach -t" 
 alias tmk="tmux kill-session -t" 
+alias tml="tmux ls" 
 
 # list all ze things
 alias ll="ls -lha"
@@ -48,11 +44,10 @@ alias mv="mv -i"
 
 alias top="htop" # set top to htop
 
-# when doing local git init then try to commit it, it gives errors
-# this fixes that issue
-alias gnew="git pull --allow-unrelated-histories origin master"
-
 # Start Cryptomator from the terminal
-alias crp="/usr/bin/nohup ~/Apps/cryptomator.AppImage --minimized > /dev/null &"
+alias crp="/usr/bin/nohup ~/Apps/cryptomator.AppImage > /dev/null &"
 # Start outlook in chromium kiosk
 alias mail="/usr/bin/nohup /snap/bin/chromium --kiosk https://outlook.office.com/mail/inbox > /dev/null &"
+# setup workspaces
+alias wsinit="/usr/bin/bash ~/dotfiles/scripts/workspace_init.sh"
+

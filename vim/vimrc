@@ -1,9 +1,8 @@
 " https://shapeshed.com/vim-packages/#removing-a-package
 set encoding=utf8
 colorscheme codedark
+
 syntax on
-" highlight active window in statusline
-highlight StatusLineNC cterm=bold ctermfg=white ctermbg=darkgray
 
 set cursorline " highlight the cursorline
 nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR>
