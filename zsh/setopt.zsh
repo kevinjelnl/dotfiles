@@ -1,5 +1,5 @@
 # history
-HISTFILE=~/.history
+HISTFILE=$HOME/dbox/devtop/.history
 HISTSIZE=4096
 SAVEHIST=$HISTSIZE
 

@@ -5,6 +5,7 @@ alias dotfileLocation="$HOME/dotfiles"
 alias update="sudo apt-get update -y && sudo apt-get dist-upgrade -y && sudo apt autoremove -y"
 alias cat="batcat"
 alias docker="sudo docker"
+alias venvsible="source $HOME/.virtualenvs/ansible/bin/activate"
 
 # choose nvim when available
 if type nvim > /dev/null 2>&1; then

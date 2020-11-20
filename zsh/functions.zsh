@@ -5,6 +5,14 @@ function md() {
     mkdir -p "$@" && cd "$_";
 }
 
+function rm-dangling-dockerimages(){
+    docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+}
+function senv() {
+    export $(grep -v '^#' .env | xargs -d '\n')
+    echo ".env loaded in current shell"
+}
+
 # run the dotbot installer
 function dfu_local() {
     cd ~/dotfiles && ./install -q && source ~/.zshrc
