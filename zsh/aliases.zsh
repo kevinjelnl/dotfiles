@@ -2,7 +2,7 @@
 alias diskspace="du -hxs | sort -rn"
 
 alias dotfileLocation="$HOME/dotfiles"
-alias update="sudo apt-get update -y && sudo apt-get dist-upgrade -y && sudo apt autoremove -y"
+alias update="sudo apt-get update -y && sudo apt-get dist-upgrade -y && sudo apt autoremove -y && flatpak update && flatpak remove --unused"
 alias cat="batcat"
 alias docker="sudo docker"
 alias venvsible="source $HOME/.virtualenvs/ansible/bin/activate"
