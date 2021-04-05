@@ -1,4 +1,9 @@
 # custom functions
+# run the dotbot installer
+function dfu-local() {
+    cd ~/dotfiles && ./install -q && source ~/.zshrc
+}
+
 
 # create a new directory and enter it
 function md() {
@@ -13,10 +18,6 @@ function senv() {
     echo ".env loaded in current shell"
 }
 
-# run the dotbot installer
-function dfu_local() {
-    cd ~/dotfiles && ./install -q && source ~/.zshrc
-}
 
 # PYTHON specific functions
 function venv() {

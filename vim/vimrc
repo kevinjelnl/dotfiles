@@ -24,6 +24,9 @@ set tabstop=4
 set ai "Auto indent
 set si "Smart indent
 
+" remap paste in visual
+vnoremap <leader>p "_dP
+
 set wrap "Wrap lines
 set lbr " linebreak
 set tw=500 " on 500 chars

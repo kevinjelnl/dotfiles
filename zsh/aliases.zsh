@@ -6,6 +6,9 @@ alias update="sudo apt-get update -y && sudo apt-get dist-upgrade -y && sudo apt
 alias cat="batcat"
 alias docker="sudo docker"
 alias venvsible="source $HOME/.virtualenvs/ansible/bin/activate"
+alias rss="newsboat"
+alias myeyes="redshift -O 2222 -P"
+alias redshift-reset="redshift -x"
 
 # choose nvim when available
 if type nvim > /dev/null 2>&1; then
@@ -37,7 +40,7 @@ alias egrep="egrep --color=auto"
 alias week="date +%V"
 
 # ping standard 5 times
-alias ping="ping -c 5"
+alias ping5="ping -c 5"
 
 # protect against overwriting
 alias cp="cp -i"
