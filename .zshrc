@@ -76,9 +76,7 @@ export FZF_BASE=$(which fzf)
 
 plugins=(
     fzf
-    copydir
     supervisor
-    thefuck
     ripgrep
     docker
     docker-compose

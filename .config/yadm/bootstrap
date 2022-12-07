@@ -22,7 +22,7 @@ install_ohmyzsh() {
 
 install_apt_packages() {
     echo "...installing apt packages!"
-    packages="tmux fzf bat ripgrep"
+    packages="tmux fzf bat ripgrep tldr"
     sudo apt-get install $packages -y
 }
 
