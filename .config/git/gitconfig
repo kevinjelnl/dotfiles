@@ -1,0 +1,34 @@
+[core]
+	excludesfile= ~/.config/git/gitignore_global
+[user]
+	email = ztfe3nvd@duck.com
+	name = kevinjel
+[color]
+	ui = auto
+	branch = auto
+	status = auto
+
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red 
+	new = green bold
+
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+
+[alias]
+	a = add
+	s = status
+	ci = commit
+	b = branch
+	co = checkout
+	re = remote
+	d = diff

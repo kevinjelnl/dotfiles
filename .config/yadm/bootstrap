@@ -1,0 +1,38 @@
+#!/usr/bin/bash
+
+prompt_user() {
+    while true; do
+    read -p "Do you wish to install the program $1? [y/n] " yn
+    case $yn in
+        [Yy]* ) result=0; break;;
+        [Nn]* ) result=1; break;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+return $result
+}
+
+install_ohmyzsh() {
+    prompt_user "zsh"
+    if [[ $? == 0 ]]
+    then
+        $(which bash) -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    fi
+}
+
+install_apt_packages() {
+    echo "...installing apt packages!"
+    packages="tmux fzf bat ripgrep"
+    sudo apt-get install $packages -y
+}
+
+create_symlinks() {
+    # symlink the the theme for ohmyzsh
+    ln -sf $HOME/.config/zsh/kevinjel.zsh-theme $HOME/.oh-my-zsh/themes/kevinjel.zsh-theme
+    ln -sf $HOME/.config/git/gitconfig $HOME/.gitconfig
+}
+
+echo "be careful what you autodownload/install from the web!"
+install_ohmyzsh
+install_apt_packages
+create_symlinks
