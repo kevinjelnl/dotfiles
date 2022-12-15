@@ -10,6 +10,7 @@ alias pbcopy='clip.exe'
 # choose nvim when available
 if type nvim > /dev/null 2>&1; then
   alias vim="nvim"
+  alias vi="nvim"
 fi
 # use batcat if available
 if type batcat > /dev/null 2>&1; then
@@ -21,6 +22,7 @@ alias tmux="tmux -u" # use unicode in tmux
 alias tma="tmux attach -t"
 alias tmk="tmux kill-session -t" 
 alias tml="tmux ls" 
+alias tmr="tmux rename-session"
 
 # list all ze things
 alias ll="ls -lha"
