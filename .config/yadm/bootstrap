@@ -28,7 +28,7 @@ install_vim-plug() {
 
 install_apt_packages() {
     echo "...installing apt packages!"
-    packages="tmux fzf bat ripgrep tldr tree"
+    packages="tmux fzf bat ripgrep tldr tree xsel"
     sudo apt-get install $packages -y
 }
 
