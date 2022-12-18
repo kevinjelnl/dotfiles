@@ -5,7 +5,7 @@ alias docker="sudo docker"
 alias venvsible="source $HOME/.virtualenvs/ansible/bin/activate"
 alias py='poetry run python'
 # perhaps test if we are in a WSL session
-alias pbcopy='clip.exe'
+alias pbcopy='xsel -ib'
 
 # choose nvim when available
 if type nvim > /dev/null 2>&1; then
