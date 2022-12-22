@@ -4,6 +4,8 @@ alias update="sudo apt-get update -y && sudo apt-get dist-upgrade -y && sudo apt
 alias docker="sudo docker"
 alias venvsible="source $HOME/.virtualenvs/ansible/bin/activate"
 alias py='poetry run python'
+alias clockfix='sudo ntpdate time.windows.com > /dev/null'
+
 # perhaps test if we are in a WSL session
 alias pbcopy='xsel -ib'
 
