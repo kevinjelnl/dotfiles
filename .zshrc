@@ -10,10 +10,6 @@ fi
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# custom exports
-# add golang to the path
-export PATH=$PATH:/usr/local/go/bin
-
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -88,6 +84,9 @@ source $ZSH/oh-my-zsh.sh
 ZSH_TMUX_AUTOSTART="true"
 
 export EDITOR=vim # use VIM as standar editor
+export PATH=$PATH:/usr/local/go/bin # golang
+export PATH="$HOME/.local/bin:$PATH" # poetry
+
 
 # use ripgrep with FZF and show a preview
 export FZF_DEFAULT_OPTS='--height=75% --multi --preview="batcat --color=always {}" --preview-window=right:60%:wrap'
