@@ -86,6 +86,7 @@ ZSH_TMUX_AUTOSTART="true"
 export EDITOR=vim # use VIM as standar editor
 export PATH=$PATH:/usr/local/go/bin # golang
 export PATH="$HOME/.local/bin:$PATH" # poetry
+eval "$(thefuck --alias)"
 
 
 # use ripgrep with FZF and show a preview
