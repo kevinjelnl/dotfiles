@@ -3,7 +3,7 @@
 prompt_user() {
     while true; do
         if [[ $1 == "skip" ]]; then 
-            read -p "Is this a non-install run? [y/n] " yn
+            read -p "Skip all downloads and installs? [y/n] " yn
         else
             read -p "Do you want to install the program $1? [y/n] " yn
         fi
@@ -17,30 +17,36 @@ done
 return $result
 }
 
+install_apt_packages() {
+    echo "...installing apt packages!"
+    sudo apt-get update 
+    packages="tmux fzf bat ripgrep tldr tree xsel jq btop python-is-python3 zsh-autosuggestions"
+    sudo apt-get install $packages -y
+    tldr -u > /dev/null
+}
+
 install_ohmyzsh() {
     prompt_user "zsh"
     if [[ $? == 1 ]]; then return; fi
-    $(which bash) -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    $(which bash) -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc > /dev/null
 }
 
-install_vim-plug() {
-    prompt_user "vim-plug"
+install_nvim() {
+    # first install neovim
+    prompt_user "nvim and plugins"
     if [[ $? == 1 ]]; then return; fi
+    sudo add-apt-repository ppa:neovim-ppa/stable -y && sudo apt-get update && sudo apt-get install neovim -y
+    # install vimplug
     sh -c 'curl -s -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-}
-
-install_apt_packages() {
-    echo "...installing apt packages!"
-    packages="tmux fzf bat ripgrep tldr tree xsel jq"
-    sudo apt-get install $packages -y
-    tldr -u
+    # install the plugins
+    /usr/bin/nvim -E +PlugInstall +qall
 }
 
 install_other_packages() {
-    prompt_user "thefck";   if [[ $? == 0 ]]; then pip3 install thefuck --user; fi;
-    prompt_user "debt-get"; if [[ $? == 0 ]]; then
-        curl -sL https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get | sudo -E bash -s install deb-get
+    prompt_user "thefck";   if [[ $? == 0 ]]; then pip3 install thefuck --user --no-warn-script-location; fi;
+    prompt_user "autojump"; if [[ $? == 0 ]]; then 
+        git clone https://github.com/wting/autojump /tmp/autojump && cd /tmp/autojump && python3 ./install.py
     fi
 }
 
@@ -54,11 +60,11 @@ create_symlinks() {
 
 prompt_user "skip"
 if [[ $? == 1 ]]; then
+    install_apt_packages
     echo "...be very careful with what you autodownload/install from the web!"
     install_ohmyzsh
-    install_vim-plug
+    install_nvim
     install_other_packages
-    install_apt_packages
 fi
 create_symlinks
 
