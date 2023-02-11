@@ -49,4 +49,4 @@ alias ping5="ping -c 5"
 # protect against overwriting
 alias cp="cp -i"
 alias mv="mv -i"
-alias top="htop" # set top to htop
+alias top="btop" # set top to htop
