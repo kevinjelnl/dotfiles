@@ -20,11 +20,15 @@ return $result
 install_apt_packages() {
     prompt_user "multiple apt packages"
     if [[ $? == 1 ]]; then return; fi
-    packages=("tmux" "fzf" "bat" "ripgrep" "tldr" "tree" "xsel" "jq" "btop" "autojump" "python-is-python3" "zsh-autosuggestions")
+    packages=("tmux" "fzf" "bat" "ripgrep" "tree" "xsel" "jq" "btop" "autojump" "python-is-python3" "zsh-autosuggestions")
     echo "...installing apt packages"
     sudo apt-get update > /dev/null
     sudo apt-get install ${packages[*]} -y > /dev/null
-    tldr -u > /dev/null
+    # install tmux plugins
+    tmux_dir="$HOME/.tmux/plugins/tpm"
+    if [ ! -d "$tmux_dir" ]; then
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm || true > /dev/null 
+    fi
 }
 
 install_ohmyzsh() {
@@ -46,13 +50,23 @@ install_nvim() {
 }
 
 install_other_packages() {
-    prompt_user "thefck";   if [[ $? == 0 ]]; then pip3 install thefuck --user --no-warn-script-location; fi;
+    prompt_user "thefck"
+    if [[ $? == 0 ]]; then
+        sudo apt-get install python3-pip -y
+        pip3 install thefuck --user --no-warn-script-location
+    fi
+    prompt_user "tldr"
+    if [[ $? == 0 ]]; then
+        sudo apt-get install tldr -y
+        tldr -u > /dev/null
+    fi
     return
 }
 
 create_symlinks() {
     # symlink the the theme for ohmyzsh
     ln -sf $HOME/.config/zsh/kevinjel.zsh-theme $HOME/.oh-my-zsh/themes/kevinjel.zsh-theme
+    # simlink git and vim configs
     ln -sf $HOME/.config/git/gitconfig $HOME/.gitconfig
     ln -sf $HOME/.config/nvim/init.vim $HOME/.vimrc
 }
