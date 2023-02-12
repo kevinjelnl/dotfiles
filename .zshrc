@@ -98,8 +98,10 @@ export LC_ALL=en_US.UTF-8
 
 export BAT_CONFIG_PATH="$HOME/.config/.bat.conf"
 export PATH="/usr/local/bin:$PATH"
-export GOPATH=$HOME/go
-export PATH=$PATH:$(go env GOPATH)/bin
+if [[ -f /usr/local/go/bin/go ]] then
+    export GOPATH=$HOME/go
+    export PATH=$PATH:$(go env GOPATH)/bin
+fi
 export TERM=xterm-256color
 
 # TLDR colors https://github.com/tldr-pages/tldr-python-client
