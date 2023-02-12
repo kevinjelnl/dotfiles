@@ -5,7 +5,7 @@ prompt_user() {
         if [[ $1 == "skip" ]]; then 
             read -p "Skip all downloads and installs? [y/n] " yn
         else
-            read -p "Do you want to install the program $1? [y/n] " yn
+            read -p "Do you want to install $1? [y/n] " yn
         fi
     # read the response
     case $yn in
@@ -18,10 +18,12 @@ return $result
 }
 
 install_apt_packages() {
-    echo "...installing apt packages!"
-    sudo apt-get update 
-    packages="tmux fzf bat ripgrep tldr tree xsel jq btop python-is-python3 zsh-autosuggestions"
-    sudo apt-get install $packages -y
+    prompt_user "multiple apt packages"
+    if [[ $? == 1 ]]; then return; fi
+    packages=("tmux" "fzf" "bat" "ripgrep" "tldr" "tree" "xsel" "jq" "btop" "autojump" "python-is-python3" "zsh-autosuggestions")
+    echo "...installing apt packages"
+    sudo apt-get update > /dev/null
+    sudo apt-get install ${packages[*]} -y > /dev/null
     tldr -u > /dev/null
 }
 
@@ -40,14 +42,12 @@ install_nvim() {
     sh -c 'curl -s -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     # install the plugins
-    /usr/bin/nvim -E +PlugInstall +qall
+    /usr/bin/nvim -E +PlugInstall +qall +:q
 }
 
 install_other_packages() {
     prompt_user "thefck";   if [[ $? == 0 ]]; then pip3 install thefuck --user --no-warn-script-location; fi;
-    prompt_user "autojump"; if [[ $? == 0 ]]; then 
-        git clone https://github.com/wting/autojump /tmp/autojump && cd /tmp/autojump && python3 ./install.py
-    fi
+    return
 }
 
 create_symlinks() {
@@ -58,14 +58,13 @@ create_symlinks() {
 }
 
 
+install_apt_packages
 prompt_user "skip"
 if [[ $? == 1 ]]; then
-    install_apt_packages
     echo "...be very careful with what you autodownload/install from the web!"
     install_ohmyzsh
     install_nvim
     install_other_packages
 fi
 create_symlinks
-
 echo "...done bootstrapping"
