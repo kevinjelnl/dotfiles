@@ -7,7 +7,7 @@ alias py='poetry run python'
 alias clockfix='sudo ntpdate time.windows.com > /dev/null'
 
 # perhaps test if we are in a WSL session
-alias pbcopy='xsel -ib'
+#alias pbcopy='xsel -ib'
 
 # choose nvim when available
 if type nvim > /dev/null 2>&1; then
@@ -21,6 +21,7 @@ fi
 
 # tmux settings
 alias tmux="tmux -u" # use unicode in tmux
+alias tm="tmux new-session -A -s main"
 alias tma="tmux attach -t"
 alias tmk="tmux kill-session -t" 
 alias tml="tmux ls" 
