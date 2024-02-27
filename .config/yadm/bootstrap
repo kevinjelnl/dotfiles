@@ -1,84 +1,42 @@
-#!/usr/bin/bash
+#!/bin/bash
 
-prompt_user() {
-    while true; do
-        if [[ $1 == "skip" ]]; then 
-            read -p "Skip all downloads and installs? [y/n] " yn
-        else
-            read -p "Do you want to install $1? [y/n] " yn
-        fi
-    # read the response
-    case $yn in
-        [Yy]* ) result=0; break;;
-        [Nn]* ) result=1; break;;
-        * ) echo "Please answer yes or no.";;
-    esac
-done
-return $result
-}
+# Save this file as ~/.config/yadm/bootstrap and make it executable. It will
+# execute all executable files (excluding templates and editor backups) in the
+# ~/.config/yadm/bootstrap.d directory when run.
 
-install_apt_packages() {
-    prompt_user "multiple apt packages"
-    if [[ $? == 1 ]]; then return; fi
-    packages=("tmux" "fzf" "bat" "ripgrep" "tree" "xsel" "jq" "btop" "autojump" "python-is-python3" "zsh-autosuggestions")
-    echo "...installing apt packages"
-    sudo apt-get update > /dev/null
-    sudo apt-get install ${packages[*]} -y > /dev/null
-    # install tmux plugins
-    tmux_dir="$HOME/.tmux/plugins/tpm"
-    if [ ! -d "$tmux_dir" ]; then
-        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm || true > /dev/null 
-    fi
-}
+set -eu
+# define the operating system
+system_type="$(uname -s)"
+default_bootstrap_file=false
+ran=false
 
-install_ohmyzsh() {
-    prompt_user "zsh"
-    if [[ $? == 1 ]]; then return; fi
-    $(which bash) -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc > /dev/null
-}
+# Directory to look for bootstrap executables in
+BOOTSTRAP_D="${BASH_SOURCE[0]}.d"
 
-install_nvim() {
-    # first install neovim
-    prompt_user "nvim and plugins"
-    if [[ $? == 1 ]]; then return; fi
-    sudo add-apt-repository ppa:neovim-ppa/stable -y && sudo apt-get update && sudo apt-get install neovim -y
-    # install vimplug
-    sh -c 'curl -s -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    # install the plugins
-    /usr/bin/nvim -E +PlugInstall +qall +:q
-}
-
-install_other_packages() {
-    prompt_user "thefck"
-    if [[ $? == 0 ]]; then
-        sudo apt-get install python3-pip -y
-        pip3 install thefuck --user --no-warn-script-location
-    fi
-    prompt_user "tldr"
-    if [[ $? == 0 ]]; then
-        sudo apt-get install tldr -y
-        tldr -u > /dev/null
-    fi
-    return
-}
-
-create_symlinks() {
-    # symlink the the theme for ohmyzsh
-    ln -sf $HOME/.config/zsh/kevinjel.zsh-theme $HOME/.oh-my-zsh/themes/kevinjel.zsh-theme
-    # simlink git and vim configs
-    ln -sf $HOME/.config/git/gitconfig $HOME/.gitconfig
-    ln -sf $HOME/.config/nvim/init.vim $HOME/.vimrc
-}
-
-
-install_apt_packages
-prompt_user "skip"
-if [[ $? == 1 ]]; then
-    echo "...be very careful with what you autodownload/install from the web!"
-    install_ohmyzsh
-    install_nvim
-    install_other_packages
+if [[ ! -d "$BOOTSTRAP_D" ]]; then
+    echo "Error: bootstrap directory '$BOOTSTRAP_D' not found" >&2
+    exit 1
 fi
-create_symlinks
-echo "...done bootstrapping"
+
+exec_bootstrap() {
+    echo "...bootstrapping device with file: $1"
+    bash $1
+    if [[ $? -eq 0 ]]; then ran="true"; return 0
+    else 
+        echo "Issues during bootstrapping with file: $1"; return 1
+    fi
+}
+
+# Test if a Bootstrap file is found for the current operating system
+if [[ -n $(find -L "$BOOTSTRAP_D" -type f -name "bootstrap_os.$system_type") ]]; then
+    exec_bootstrap "$(find -L "$BOOTSTRAP_D" -type f -name "bootstrap_os.$system_type")"
+else
+    # No bootstrap file found for the current operating system use the default one if present
+    if [[ -n $(find -L "$BOOTSTRAP_D" -type f -name "bootstrap_os.default") ]]; then
+        exec_bootstrap "$(find -L "$BOOTSTRAP_D" -type f -name "bootstrap_os.default")"
+    else
+        echo "Error: No bootstrap file found for the current operating system, nor a default one" >&2
+        exit 1
+    fi
+fi
+

@@ -5,6 +5,9 @@ alias docker="sudo docker"
 alias venvsible="source $HOME/.virtualenvs/ansible/bin/activate"
 alias py='poetry run python'
 alias clockfix='sudo ntpdate time.windows.com > /dev/null'
+alias make_pw='pwgen -y -c -s -1 -n 16 | pbcopy'
+alias remoteip='curl http://checkip.amazonaws.com/'
+
 
 # perhaps test if we are in a WSL session
 #alias pbcopy='xsel -ib'

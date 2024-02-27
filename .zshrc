@@ -1,3 +1,4 @@
+[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -9,12 +10,6 @@ fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="kevinjel"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -80,6 +75,12 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="kevinjel"
+
 # User configuration
 ZSH_TMUX_AUTOSTART="true"
 
@@ -98,8 +99,10 @@ export LC_ALL=en_US.UTF-8
 
 export BAT_CONFIG_PATH="$HOME/.config/.bat.conf"
 export PATH="/usr/local/bin:$PATH"
-if [[ -f /usr/local/go/bin/go ]] then
+
+if [[ -f /usr/local/go/bin/go ]] || [[ -f /opt/homebrew/bin/go ]]; then
     export GOPATH=$HOME/go
+    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
     export PATH=$PATH:$(go env GOPATH)/bin
 fi
 export TERM=xterm-256color
@@ -110,11 +113,13 @@ export TLDR_COLOR_EXAMPLE="yellow bold"
 export TLDR_COLOR_COMMAND="red bold"
 export TLDR_COLOR_PARAMETER="white bold"
 
-
 # Load zsh files
-for i in $HOME/.config/zsh/*; do;
+for i in $HOME/.config/zsh/*; do
     test -r "$i" && source "$i"
 done
 
 # use autojump
 [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh && autoload -U compinit && compinit -u
+
+# CodeWhisperer post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh"
