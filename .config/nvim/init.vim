@@ -5,6 +5,7 @@ set path+=**
 set autochdir
 set autoread
 set backspace=indent,eol,start
+:set nocompatible
 
 " VISUALS
 set cursorline " highlight the cursorline
@@ -48,6 +49,9 @@ set tw=500 " on 500 chars
 set mouse=a "enable mouse mode (:
 
 set rtp+=/usr/local/opt/fzf "use FZF in vim
+" nnoremap <esc> :noh<return><esc>
+" use ctrl+r to replace with approval 
+vnoremap <C-r> "hy:%s/<C-r>h//gc
 
 " plugins, syntax, and colors
 " vim-plug: https://github.com/junegunn/vim-plug

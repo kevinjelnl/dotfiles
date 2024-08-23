@@ -56,7 +56,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 HIST_STAMPS="yyyy-mm-dd"
 
 # Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+ZSH_CUSTOM=$HOME/.config/zsh
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
@@ -91,13 +91,13 @@ eval "$(thefuck --alias)"
 
 
 # use ripgrep with FZF and show a preview
-export FZF_DEFAULT_OPTS='--height=75% --multi --preview="batcat --color=always {}" --preview-window=right:60%:wrap'
+export FZF_DEFAULT_OPTS="--bind='ctrl-p:toggle-preview' --preview-window 'right:100:wrap:cycle' --height=100 --exact --info='inline' --cycle --reverse --multi"
 export FZF_DEFAULT_COMMAND='rg --files'
-# export FZF_CTRL_T_COMMAND='$FZF_DEFAULT_COMMAND'
-export FZF_CTRL_R_OPTS='--sort --exact'
+export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {}' --bind 'ctrl-/:change-preview-window(down|)'"
+export FZF_CTRL_R_OPTS='--sort'
 export LC_ALL=en_US.UTF-8
 
-export BAT_CONFIG_PATH="$HOME/.config/.bat.conf"
+export BAT_CONFIG_PATH="$HOME/.config/bat/.bat.conf"
 export PATH="/usr/local/bin:$PATH"
 
 if [[ -f /usr/local/go/bin/go ]] || [[ -f /opt/homebrew/bin/go ]]; then
@@ -105,8 +105,8 @@ if [[ -f /usr/local/go/bin/go ]] || [[ -f /opt/homebrew/bin/go ]]; then
     export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
     export PATH=$PATH:$(go env GOPATH)/bin
 fi
-export TERM=xterm-256color
 
+export TERM=tmux-256color
 # TLDR colors https://github.com/tldr-pages/tldr-python-client
 export TLDR_COLOR_NAME="bold underline"
 export TLDR_COLOR_EXAMPLE="yellow bold"
@@ -118,8 +118,12 @@ for i in $HOME/.config/zsh/*; do
     test -r "$i" && source "$i"
 done
 
-# use autojump
-[[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh && autoload -U compinit && compinit -u
+# use autojump if installed
+if command -v brew &> /dev/null; then
+    if brew list --formula | grep -q autojump; then
+        [ -f $HOMEBREW_PREFIX/etc/profile.d/autojump.sh ] && . $HOMEBREW_PREFIX/etc/profile.d/autojump.sh
+    fi
+fi
 
 # CodeWhisperer post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh"
