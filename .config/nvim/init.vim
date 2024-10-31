@@ -62,6 +62,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
+Plug 'github/copilot.vim'
 call plug#end()
 
 syntax enable

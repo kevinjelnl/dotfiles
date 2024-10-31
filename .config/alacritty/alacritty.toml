@@ -1,0 +1,20 @@
+[window]
+opacity = 0.9
+blur = true
+padding.x = 10
+padding.y = 10
+
+decorations = "Full"
+decorations_theme_variant = "Dark"
+
+[font]
+normal.family = "Hack Nerd Font"
+#bold.family = "Hack"
+#italic.family = "Hack Nerd Font, Italic"
+size = 12.0
+
+[cursor]
+style = {shape = "Beam", blinking = "On"}
+
+[terminal.shell]
+program = "/usr/bin/zsh"
