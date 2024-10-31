@@ -71,11 +71,22 @@ HIST_STAMPS="yyyy-mm-dd"
 export FZF_BASE=$(which fzf)
 
 plugins=(
+    ansible
+    colored-man-pages
     fzf
     supervisor
-    ripgrep
     docker
     docker-compose
+    history
+    git
+    golang
+    autojump
+    pip
+    poetry
+    poetry-env
+    python
+    thefuck
+    debian
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -83,11 +94,13 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 ZSH_TMUX_AUTOSTART="true"
 
-export EDITOR=vim # use VIM as standar editor
-export PATH=$PATH:/usr/local/go/bin # golang
-export PATH="$HOME/.local/bin:$PATH" # poetry
-eval "$(thefuck --alias)"
+export EDITOR=$(which nvim) # use VIM as standar editor
 
+export PATH=$PATH:/usr/local/go/bin # golang
+export PATH=$PATH:$HOME/.cargo/bin #Cargo
+
+eval "$(thefuck --alias)"
+export XDG_CONFIG_HOME="$HOME/.config"
 
 # use ripgrep with FZF and show a preview
 export FZF_DEFAULT_OPTS='--height=75% --multi --preview="batcat --color=always {}" --preview-window=right:60%:wrap'

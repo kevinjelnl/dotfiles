@@ -1,13 +1,16 @@
 # custom aliases
 alias diskspace="du -hxs | sort -rn"
 alias update="sudo apt-get update -y && sudo apt-get dist-upgrade -y && sudo apt autoremove -y"
-alias docker="sudo docker"
 alias venvsible="source $HOME/.virtualenvs/ansible/bin/activate"
 alias py='poetry run python'
 alias clockfix='sudo ntpdate time.windows.com > /dev/null'
+alias SHELL=/usr/bin/zsh
 
-# perhaps test if we are in a WSL session
+# perhaps test if we are in linux session
 alias pbcopy='xsel -ib'
+
+# flatpak specific
+alias code='flatpak run com.visualstudio.code'
 
 # choose nvim when available
 if type nvim > /dev/null 2>&1; then
@@ -27,6 +30,7 @@ alias tml="tmux ls"
 alias tmr="tmux rename-session"
 
 # list all ze things
+alias ls="lsd"
 alias ll="ls -lha"
 alias wls="watch ls -lhat"
 
@@ -50,3 +54,4 @@ alias ping5="ping -c 5"
 alias cp="cp -i"
 alias mv="mv -i"
 alias top="btop" # set top to htop
+
