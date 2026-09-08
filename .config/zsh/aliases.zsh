@@ -3,14 +3,23 @@ alias diskspace="du -hxs | sort -rn"
 alias update="sudo apt-get update -y && sudo apt-get dist-upgrade -y && sudo apt autoremove -y"
 alias venvsible="source $HOME/.virtualenvs/ansible/bin/activate"
 alias py='poetry run python'
+alias mdview='glow -p'
+alias fk='fuck'
 alias clockfix='sudo ntpdate time.windows.com > /dev/null'
 alias SHELL=/usr/bin/zsh
 
 # perhaps test if we are in linux session
 alias pbcopy='xsel -ib'
 
-# flatpak specific
-alias code='flatpak run com.visualstudio.code'
+# Prefer a native `code` command, including the Windows VS Code CLI exposed by
+# WSL. Use the Flatpak build only when no native command is available.
+if command -v code >/dev/null 2>&1; then
+  unalias code 2>/dev/null
+elif command -v flatpak >/dev/null 2>&1; then
+  alias code='flatpak run com.visualstudio.code'
+else
+  unalias code 2>/dev/null
+fi
 
 # choose nvim when available
 if type nvim > /dev/null 2>&1; then
@@ -24,13 +33,18 @@ fi
 
 # tmux settings
 alias tmux="tmux -u" # use unicode in tmux
+alias tm="tmux new-session -A -s main" # start or attach to main session
 alias tma="tmux attach -t"
 alias tmk="tmux kill-session -t" 
 alias tml="tmux ls" 
 alias tmr="tmux rename-session"
 
 # list all ze things
-alias ls="lsd"
+if command -v lsd >/dev/null 2>&1; then
+  alias ls="lsd"
+else
+  alias ls="ls --color=auto"
+fi
 alias ll="ls -lha"
 alias wls="watch ls -lhat"
 

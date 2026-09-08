@@ -1,12 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Start in a TMUX shell on startup
-if [ -z "$TMUX" ] && [ ${UID} != 0 ]
-then
-    tmux new-session -A -s main
-fi
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -85,22 +79,23 @@ plugins=(
     poetry
     poetry-env
     python
-    thefuck
     debian
 )
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-ZSH_TMUX_AUTOSTART="true"
 
 export EDITOR=$(which nvim) # use VIM as standar editor
 
 export PATH=$PATH:/usr/local/go/bin # golang
 export PATH=$PATH:$HOME/.cargo/bin #Cargo
 
-eval "$(thefuck --alias)"
+if command -v thefuck >/dev/null 2>&1; then
+    thefuck_alias=$(thefuck --alias 2>/dev/null) && eval "$thefuck_alias"
+fi
 export XDG_CONFIG_HOME="$HOME/.config"
+export PATH="$HOME/.local/bin:$PATH"
 
 # use ripgrep with FZF and show a preview
 export FZF_DEFAULT_OPTS='--height=75% --multi --preview="batcat --color=always {}" --preview-window=right:60%:wrap'
@@ -115,8 +110,6 @@ if [[ -f /usr/local/go/bin/go ]] then
     export GOPATH=$HOME/go
     export PATH=$PATH:$(go env GOPATH)/bin
 fi
-export TERM=xterm-256color
-
 # TLDR colors https://github.com/tldr-pages/tldr-python-client
 export TLDR_COLOR_NAME="bold underline"
 export TLDR_COLOR_EXAMPLE="yellow bold"
@@ -131,3 +124,5 @@ done
 
 # use autojump
 [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh && autoload -U compinit && compinit -u
+
+eval $(thefuck --alias)
