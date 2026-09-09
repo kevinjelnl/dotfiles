@@ -24,3 +24,13 @@
 # num_close_matches = 3
 # env = {'LC_ALL': 'C', 'LANG': 'C', 'GIT_TRACE': '1'}
 excluded_search_path_prefixes = ['/mnt/']
+
+# Keep corrections useful without silently changing commands.
+require_confirmation = True
+no_colors = False
+wait_command = 3
+wait_slow_command = 10
+history_limit = 10
+num_close_matches = 5
+alter_history = True
+instant_mode = False

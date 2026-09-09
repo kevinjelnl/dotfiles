@@ -66,7 +66,7 @@ set rtp+=/usr/local/opt/fzf "use FZF in vim
 " set the plugin path
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'morhetz/gruvbox'
 Plug 'junegunn/vim-easy-align'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-commentary'
@@ -147,6 +147,28 @@ let g:ale_completion_enabled = 0
 let g:ale_sign_error = 'E>'
 let g:ale_sign_warning = 'W>'
 let g:ale_virtualtext_cursor = 1
+let g:ale_linters = {
+      \ 'python': ['ruff'],
+      \ 'javascript': ['eslint'],
+      \ 'javascriptreact': ['eslint'],
+      \ 'typescript': ['eslint'],
+      \ 'typescriptreact': ['eslint'],
+      \ 'html': ['htmlhint'],
+      \ 'css': ['stylelint'],
+      \ 'sh': ['shellcheck'],
+      \ 'yaml': ['yamllint'],
+      \ }
+let g:ale_fixers = {
+      \ 'python': ['ruff_format'],
+      \ 'javascript': ['prettier'],
+      \ 'javascriptreact': ['prettier'],
+      \ 'typescript': ['prettier'],
+      \ 'typescriptreact': ['prettier'],
+      \ 'html': ['prettier'],
+      \ 'css': ['prettier'],
+      \ 'json': ['prettier'],
+      \ 'yaml': ['prettier'],
+      \ }
 
 let g:copilot_no_tab_map = v:true
 imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
@@ -161,8 +183,10 @@ augroup END
 
 syntax enable
 set termguicolors
-let g:dracula_italic = 0
-colorscheme dracula
+let g:gruvbox_italic = 0
+let g:gruvbox_contrast_dark = 'medium'
+set background=dark
+colorscheme gruvbox
 hi Normal guibg=NONE ctermbg=NONE
 " change background of cursorline
 hi CursorLine guibg=#212121

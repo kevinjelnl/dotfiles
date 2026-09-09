@@ -14,7 +14,7 @@ fi
 
 packages=(
     git curl gnupg tmux fzf lsd bat ripgrep tree xsel jq btop autojump python-is-python3
-    zsh zsh-autosuggestions python3-pip pipx tealdeer shellcheck yamllint
+    zsh zsh-autosuggestions python3-pip pipx tealdeer shellcheck yamllint nodejs npm
 )
 
 apt-get update

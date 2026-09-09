@@ -32,8 +32,14 @@ if type batcat > /dev/null 2>&1; then
 fi
 
 # tmux settings
-alias tmux="tmux -u" # use unicode in tmux
-alias tm="tmux new-session -A -s main" # start or attach to main session
+tmux() {
+  if (( $# == 0 )); then
+    command tmux -u new-session -A -s main
+  else
+    command tmux -u "$@"
+  fi
+}
+alias tm="tmux" # start or attach to the main session
 alias tma="tmux attach -t"
 alias tmk="tmux kill-session -t" 
 alias tml="tmux ls" 

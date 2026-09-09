@@ -1,10 +1,10 @@
-# style name or JSON path (default "auto")
-style: "auto"
-# mouse support (TUI-mode only)
-mouse: false
-# use pager to display markdown
+# Use Glow's dark Glamour style for readable headings, code blocks, and tables.
+style: "dark"
+# Allow mouse scrolling when Glow is running interactively.
+mouse: true
+# Keep shell output focused; Neovim opens its own pager session.
 pager: false
-# word-wrap at width
-width: 80
-# show all files, including hidden and ignored.
+# Give Markdown tables and code blocks more room on a VPS terminal.
+width: 100
+# Do not include hidden files when browsing directories.
 all: false

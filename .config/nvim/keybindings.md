@@ -2,6 +2,8 @@
 
 The leader key is `Space`.
 
+The editor uses the warm orange `gruvbox` dark theme.
+
 ## Navigation and files
 
 | Keys | Action |
@@ -35,6 +37,10 @@ The leader key is `Space`.
 | `Alt-]` | Show the next suggestion |
 | `Alt-[` | Show the previous suggestion |
 
+Run `:Copilot auth` inside Neovim to authenticate. On a headless VPS, Copilot
+prints a URL and one-time code; open the URL on another device and enter the
+code there.
+
 ## Built-in commands
 
 | Command | Action |
@@ -45,6 +51,17 @@ The leader key is `Space`.
 | `:Copilot auth` | Authenticate GitHub Copilot |
 | `:ALEInfo` | Show active linters and their status |
 | `:Glow` | Render the current file with Glow |
+
+ALE uses tools available in the project or on `PATH`. Python, shell, and YAML
+are ready when `ruff`, `shellcheck`, and `yamllint` are installed. For web
+projects, add the tools to the project instead of installing them globally:
+
+```sh
+npm install --save-dev eslint prettier htmlhint stylelint
+```
+
+Then use `Space an`/`Space ap` for diagnostics and `Space af` to format or fix
+the current file.
 
 Glow is an external command. Install it through the system package setup, then
 use `mdview file.md` from the shell or `Space mv` inside Neovim. The Neovim
