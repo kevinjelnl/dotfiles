@@ -40,10 +40,16 @@ is wanted:
 tmux
 ```
 
-Bare `tmux` starts or attaches to the `main` session. tmux launches `/bin/zsh`
-for new windows and panes. Zsh then loads Oh My Zsh,
+Bare `tmux` starts or attaches to the `main` session from both Bash and Zsh.
+tmux launches `/bin/zsh` for new windows and panes. Zsh then loads Oh My Zsh,
 the custom theme, aliases, functions, history settings, and other interactive
 configuration.
+
+The shared shell environment sets `LSD_ICON_MODE=always` for this dotfiles
+setup. Install and select the same Nerd Font in each local Windows Terminal and
+VS Code profile. Remote shells and containers inherit the setting, but the
+font is rendered by the local client. Use `LSD_ICON_MODE=never` or
+`ll-no-icons` when the local terminal lacks Nerd Font glyphs.
 
 To bypass any future host-specific tmux automation during recovery:
 
@@ -96,6 +102,10 @@ support for Go and Docker is a separate Neovim configuration step.
 The bootstrap also manages user-local tools and integrations when their
 dependencies are available, including vim-plug plugins, Oh My Zsh, tmux TPM,
 thefuck, Glow, Node.js/npm, and tealdeer cache updates.
+
+Bootstrap preserves an existing `~/.bash_aliases` and appends one idempotent
+block that loads `.config/zsh/aliases.zsh`. If the file is absent, bootstrap
+creates it. The existing Bash startup files remain unmanaged.
 
 ## Neovim tools
 

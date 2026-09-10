@@ -155,6 +155,23 @@ install_other_packages() {
     fi
 }
 
+configure_bash_aliases() {
+    local bash_aliases="$HOME/.bash_aliases"
+    local marker="# yadm: load shared shell aliases"
+
+    if [[ -f "$bash_aliases" ]] && grep -Fqx "$marker" "$bash_aliases"; then
+        return
+    fi
+
+    if [[ -e "$bash_aliases" ]]; then
+        printf '\n%s\nif [[ -r "$HOME/.config/zsh/aliases.zsh" ]]; then\n    . "$HOME/.config/zsh/aliases.zsh"\nfi\n' \
+            "$marker" >> "$bash_aliases"
+    else
+        printf '%s\nif [[ -r "$HOME/.config/zsh/aliases.zsh" ]]; then\n    . "$HOME/.config/zsh/aliases.zsh"\nfi\n' \
+            "$marker" > "$bash_aliases"
+    fi
+}
+
 check_shell_workflow() {
     local configured=1
 
@@ -192,6 +209,7 @@ install_tmux_plugins
 install_ohmyzsh
 install_nvim
 install_other_packages
+configure_bash_aliases
 create_symlinks
 check_shell_workflow
 echo "...done bootstrapping"

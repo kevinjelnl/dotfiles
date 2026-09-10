@@ -1,0 +1,2 @@
+# Terminal-dependent preferences shared by Bash and Zsh.
+export LSD_ICON_MODE=always

@@ -39,6 +39,7 @@ tmux() {
     command tmux -u "$@"
   fi
 }
+
 alias tm="tmux" # start or attach to the main session
 alias tma="tmux attach -t"
 alias tmk="tmux kill-session -t" 
@@ -47,11 +48,14 @@ alias tmr="tmux rename-session"
 
 # list all ze things
 if command -v lsd >/dev/null 2>&1; then
-  alias ls="lsd"
+  [[ "${LSD_ICON_MODE:-}" == always ]] || LSD_ICON_MODE=never
+  alias ls="lsd --icon $LSD_ICON_MODE"
 else
   alias ls="ls --color=auto"
 fi
 alias ll="ls -lha"
+alias ll-no-icons="lsd --icon never -lha"
+alias ls-icons='lsd --icon always'
 alias wls="watch ls -lhat"
 
 # cd navigation
