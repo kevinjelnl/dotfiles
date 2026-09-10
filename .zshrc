@@ -101,6 +101,9 @@ if [[ -r "$HOME/.config/shell/environment" ]]; then
     source "$HOME/.config/shell/environment"
 fi
 
+export NVM_DIR="$HOME/.nvm"
+[[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
+
 # use ripgrep with FZF and show a preview
 export FZF_DEFAULT_OPTS='--height=75% --multi --preview="batcat --color=always {}" --preview-window=right:60%:wrap'
 export FZF_DEFAULT_COMMAND='rg --files'
