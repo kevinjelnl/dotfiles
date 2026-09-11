@@ -12,35 +12,13 @@ if [[ "$(uname -s)" != Linux ]] || ! command -v apt-get >/dev/null 2>&1; then
     exit 1
 fi
 
-packages=(
-    git curl gnupg tmux fzf lsd bat ripgrep tree xsel jq btop autojump python-is-python3
-    zsh zsh-autosuggestions python3-pip pipx tealdeer shellcheck yamllint nodejs npm
-)
+package_file="$HOME/.config/yadm/packages/apt-common"
+if [[ ! -r "$package_file" ]]; then
+    echo "Missing package manifest: $package_file" >&2
+    exit 1
+fi
+
+mapfile -t packages < <(grep -Ev '^[[:space:]]*(#|$)' "$package_file")
 
 apt-get update
-apt-get install -y software-properties-common "${packages[@]}"
-
-if [[ -r /etc/os-release ]]; then
-    . /etc/os-release
-fi
-
-if [[ "${ID:-}" == ubuntu || "${ID:-}" == debian || " ${ID_LIKE:-} " == *" debian "* ]]; then
-    charm_keyring=/etc/apt/keyrings/charm.gpg
-    charm_source=/etc/apt/sources.list.d/charm.list
-    mkdir -p /etc/apt/keyrings
-    if [[ ! -s "$charm_keyring" ]]; then
-        curl -fsSL https://repo.charm.sh/apt/gpg.key | gpg --dearmor --yes -o "$charm_keyring"
-    fi
-    if [[ ! -f "$charm_source" ]]; then
-        echo "deb [signed-by=$charm_keyring] https://repo.charm.sh/apt/ * *" > "$charm_source"
-    fi
-    apt-get update
-    apt-get install -y glow
-fi
-
-if [[ "${ID:-}" == ubuntu ]] && ! grep -Rqs '^deb .*neovim-ppa/stable' /etc/apt/sources.list /etc/apt/sources.list.d 2>/dev/null; then
-    add-apt-repository ppa:neovim-ppa/stable -y
-    apt-get update
-fi
-
-apt-get install -y neovim
+apt-get install -y "${packages[@]}"

@@ -1,0 +1,31 @@
+# Shared Debian/Ubuntu packages for the VPS, WSL2, and Pop!_OS.
+# Keep desktop-only and host-specific tools out of this list.
+git
+curl
+gnupg
+ca-certificates
+build-essential
+pkg-config
+tmux
+fzf
+lsd
+bat
+ripgrep
+tree
+xsel
+jq
+btop
+zoxide
+fd-find
+python-is-python3
+python3-venv
+zsh
+zsh-autosuggestions
+python3-pip
+pipx
+tealdeer
+shellcheck
+yamllint
+nodejs
+npm
+neovim

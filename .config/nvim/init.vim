@@ -40,7 +40,9 @@ nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR>
 nnoremap <silent> <Leader>L :match none<CR>
 
 " editor settings
-set clipboard=unnamedplus
+if has('mac') || executable('xclip') || executable('xsel') || has('win32')
+      set clipboard=unnamedplus
+endif
 set cmdheight=2
 set incsearch  " search like modern browser
 set showmatch  " show matching brackets
@@ -56,8 +58,6 @@ set wrap " Wrap lines
 set lbr " linebreak
 set tw=500 " on 500 chars
 set mouse=a "enable mouse mode (:
-
-set rtp+=/usr/local/opt/fzf "use FZF in vim
 
 " plugins, syntax, and colors
 " vim-plug: https://github.com/junegunn/vim-plug

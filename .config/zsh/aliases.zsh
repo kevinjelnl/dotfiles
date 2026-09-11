@@ -1,15 +1,16 @@
 # custom aliases
 alias diskspace="du -hxs | sort -rn"
-alias update="sudo apt-get update -y && sudo apt-get dist-upgrade -y && sudo apt autoremove -y"
-alias venvsible="source $HOME/.virtualenvs/ansible/bin/activate"
-alias py='poetry run python'
+if command -v uv >/dev/null 2>&1; then
+  alias py='uv run python'
+fi
 alias mdview='glow -p'
-alias fk='fuck'
-alias clockfix='sudo ntpdate time.windows.com > /dev/null'
-alias SHELL=/usr/bin/zsh
 
-# perhaps test if we are in linux session
-alias pbcopy='xsel -ib'
+if command -v xsel >/dev/null 2>&1; then
+  alias pbcopy='xsel -ib'
+fi
+if command -v fdfind >/dev/null 2>&1 && ! command -v fd >/dev/null 2>&1; then
+  alias fd='fdfind'
+fi
 
 # Prefer a native `code` command, including the Windows VS Code CLI exposed by
 # WSL. Use the Flatpak build only when no native command is available.
@@ -54,8 +55,10 @@ else
   alias ls="ls --color=auto"
 fi
 alias ll="ls -lha"
-alias ll-no-icons="lsd --icon never -lha"
-alias ls-icons='lsd --icon always'
+if command -v lsd >/dev/null 2>&1; then
+  alias ll-no-icons="lsd --icon never -lha"
+  alias ls-icons='lsd --icon always'
+fi
 alias wls="watch ls -lhat"
 
 # cd navigation
@@ -77,5 +80,7 @@ alias ping5="ping -c 5"
 # protect against overwriting
 alias cp="cp -i"
 alias mv="mv -i"
-alias top="btop" # set top to htop
+if command -v btop >/dev/null 2>&1; then
+  alias top="btop"
+fi
 

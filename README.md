@@ -19,9 +19,15 @@ Run the bootstrap when prompted by `yadm clone`, or later with:
 yadm bootstrap
 ```
 
-The bootstrap is safe to run repeatedly. It installs system packages only on
-Debian-family Linux systems, and uses the optional executable hook below for
-future platforms:
+The bootstrap is safe to run repeatedly. It configures user files and skips
+system package installation by default. To install the shared apt package
+manifest on a Debian-family host, opt in explicitly:
+
+```bash
+YADM_INSTALL_SYSTEM_PACKAGES=1 yadm bootstrap
+```
+
+The bootstrap also uses the optional executable hook below for future platforms:
 
 ```text
 ~/.config/yadm/bootstrap.d/$OS_ID
@@ -64,6 +70,7 @@ NO_TMUX_AUTO_ATTACH=1 bash -li
 - `.config/zsh/`: aliases, functions, theme, and shell options
 - `.config/yadm/bootstrap`: idempotent bootstrap orchestration and OS detection
 - `.config/yadm/install-system-packages`: Debian/Ubuntu apt package installer
+- `.config/yadm/packages/apt-common`: shared Debian/Ubuntu package manifest
 - `.config/nvim/init.vim`: Vim and Neovim configuration
 - `.config/git/gitconfig`: Git preferences and aliases
 
@@ -82,11 +89,24 @@ npm ci
 Commit `package.json` and `package-lock.json`; use `npm ci` for reproducible
 installs. Avoid piping an unreviewed remote script into a shell.
 
-For Go, install the Go toolchain and `gopls`:
+For Python, use `uv` for project environments and dependencies. Ubuntu does
+not currently provide `uv` in its standard apt repositories, so install it
+only on hosts or container images that need Python development:
 
 ```sh
-sudo apt install golang-go
-go install golang.org/x/tools/gopls@latest
+pipx install uv
+uv venv
+uv run python --version
+uv add ruff
+uv run ruff check .
+```
+
+Commit `pyproject.toml` and `uv.lock` for reproducible Python installs.
+
+For Go, use the Ubuntu packages where available:
+
+```sh
+sudo apt install golang-go gopls
 ```
 
 For Dockerfiles, install the Node language server locally in a project or
@@ -97,11 +117,20 @@ npm install --save-dev dockerfile-language-server-nodejs
 ```
 
 The current ALE setup can lint shell, YAML, Python, and web files. Full LSP
-support for Go and Docker is a separate Neovim configuration step.
+support for Go and Docker is a separate Neovim configuration step. Ubuntu's
+`fd-find` package provides `fdfind`; the shared shell aliases expose it as
+`fd` when no native `fd` command exists.
 
-The bootstrap also manages user-local tools and integrations when their
-dependencies are available, including vim-plug plugins, Oh My Zsh, tmux TPM,
-thefuck, Glow, Node.js/npm, and tealdeer cache updates.
+The bootstrap manages user-local integrations when their dependencies are
+available, including vim-plug plugins, Oh My Zsh, and tmux TPM. It does not
+install personal command helpers or project tooling.
+
+For a container or a host where package installation is managed elsewhere,
+the default bootstrap is already lightweight:
+
+```bash
+yadm bootstrap
+```
 
 Bootstrap preserves an existing `~/.bash_aliases` and appends one idempotent
 block that loads `.config/zsh/aliases.zsh`. If the file is absent, bootstrap

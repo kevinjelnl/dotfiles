@@ -62,8 +62,6 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-export FZF_BASE=$(which fzf)
-
 plugins=(
     ansible
     colored-man-pages
@@ -74,26 +72,25 @@ plugins=(
     history
     git
     golang
-    autojump
     pip
-    poetry
-    poetry-env
     python
     debian
 )
 
-source $ZSH/oh-my-zsh.sh
+if [[ -r "$ZSH/oh-my-zsh.sh" ]]; then
+    source "$ZSH/oh-my-zsh.sh"
+fi
 
 # User configuration
 
-export EDITOR=$(which nvim) # use VIM as standar editor
-
-export PATH=$PATH:/usr/local/go/bin # golang
-export PATH=$PATH:$HOME/.cargo/bin #Cargo
+export EDITOR="${EDITOR:-$(command -v nvim || command -v vim || command -v vi)}"
 
 if command -v thefuck >/dev/null 2>&1; then
-    thefuck_alias=$(thefuck --alias 2>/dev/null) && eval "$thefuck_alias"
+    eval "$(thefuck --alias)"
 fi
+
+[[ -d "$HOME/.cargo/bin" ]] && export PATH="$PATH:$HOME/.cargo/bin"
+
 export XDG_CONFIG_HOME="$HOME/.config"
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -105,17 +102,15 @@ export NVM_DIR="$HOME/.nvm"
 [[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
 
 # use ripgrep with FZF and show a preview
-export FZF_DEFAULT_OPTS='--height=75% --multi --preview="batcat --color=always {}" --preview-window=right:60%:wrap'
-export FZF_DEFAULT_COMMAND='rg --files'
+if command -v fzf >/dev/null 2>&1; then
+    export FZF_DEFAULT_OPTS='--height=75% --multi --preview="batcat --color=always {}" --preview-window=right:60%:wrap'
+    export FZF_DEFAULT_COMMAND='rg --files'
+fi
 # export FZF_CTRL_T_COMMAND='$FZF_DEFAULT_COMMAND'
 export FZF_CTRL_R_OPTS='--sort --exact'
-export LC_ALL=en_US.UTF-8
-
-export BAT_CONFIG_PATH="$HOME/.config/.bat.conf"
-export PATH="/usr/local/bin:$PATH"
-if [[ -f /usr/local/go/bin/go ]] then
-    export GOPATH=$HOME/go
-    export PATH=$PATH:$(go env GOPATH)/bin
+if command -v go >/dev/null 2>&1; then
+    export GOPATH="${GOPATH:-$HOME/go}"
+    export PATH="$PATH:$GOPATH/bin"
 fi
 # TLDR colors https://github.com/tldr-pages/tldr-python-client
 export TLDR_COLOR_NAME="bold underline"
@@ -129,7 +124,7 @@ for i in $HOME/.config/zsh/*; do;
     test -r "$i" && source "$i"
 done
 
-# use autojump
-[[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh && autoload -U compinit && compinit -u
-
-eval $(thefuck --alias)
+# use zoxide when installed
+if command -v zoxide >/dev/null 2>&1; then
+    eval "$(zoxide init zsh)"
+fi

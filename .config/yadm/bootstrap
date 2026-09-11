@@ -25,12 +25,6 @@ run_platform_bootstrap() {
     fi
 }
 
-if [[ $EUID -eq 0 ]] || sudo -n true 2>/dev/null; then
-    SYSTEM_INSTALL_ACCESS=1
-else
-    SYSTEM_INSTALL_ACCESS=0
-fi
-
 prompt_user() {
     while true; do
         read -p "Do you want to install $1? [y/n] " yn
@@ -45,10 +39,20 @@ return $result
 }
 
 install_system_packages() {
+    if [[ "${YADM_INSTALL_SYSTEM_PACKAGES:-0}" != 1 ]]; then
+        echo "...skipping system packages: set YADM_INSTALL_SYSTEM_PACKAGES=1 to enable"
+        return 0
+    fi
     if ! is_debian_family; then
         echo "...skipping system packages: no installer is configured for $OS_NAME/$OS_ID."
         echo "Add an OS-specific installer before enabling system packages on this host."
         return 0
+    fi
+
+    if [[ $EUID -eq 0 ]] || sudo -n true 2>/dev/null; then
+        SYSTEM_INSTALL_ACCESS=1
+    else
+        SYSTEM_INSTALL_ACCESS=0
     fi
 
     prompt_user "system packages"
@@ -87,13 +91,13 @@ install_ohmyzsh() {
         echo "Ask an administrator to install zsh, then run 'yadm bootstrap' again."
         return
     fi
-    if ! command -v curl >/dev/null 2>&1; then
-        echo "...skipping Oh My Zsh: curl is not installed."
+    if ! command -v git >/dev/null 2>&1; then
+        echo "...skipping Oh My Zsh: git is not installed."
         return
     fi
     prompt_user "Oh My Zsh (user-local)"
     if [[ $? == 1 ]]; then return; fi
-    bash -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc > /dev/null || echo "...Oh My Zsh installation failed."
+    git clone --depth 1 https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh" > /dev/null || echo "...Oh My Zsh installation failed."
 }
 
 install_nvim() {
@@ -119,40 +123,6 @@ install_nvim() {
     }
     # install the plugins
     nvim --headless '+PlugInstall --sync' +qa || echo "...nvim plugin installation failed."
-}
-
-install_other_packages() {
-    if command -v pipx >/dev/null 2>&1; then
-        prompt_user "ruff"
-        if [[ $? == 0 ]]; then
-            pipx install ruff 2>/dev/null || pipx upgrade ruff
-        fi
-        prompt_user "thefuck"
-        if [[ $? == 0 ]]; then
-            local pipx_shared_python="$HOME/.local/share/pipx/shared/bin/python"
-            local thefuck_site
-            if [[ -x "$pipx_shared_python" ]]; then
-                "$pipx_shared_python" -m pip install 'setuptools<81' >/dev/null
-            fi
-            pipx install --force --pip-args='--no-build-isolation' 'git+https://github.com/nvbn/thefuck.git' 2>/dev/null || {
-                echo "...thefuck installation failed."
-                return
-            }
-            pipx inject thefuck setuptools >/dev/null
-            thefuck_site=$("$HOME/.local/share/pipx/venvs/thefuck/bin/python" -c 'import site; print(site.getsitepackages()[0])')
-            printf '%s\n' 'import setuptools' > "$thefuck_site/thefuck_python312_compat.pth"
-        fi
-    else
-        echo "...skipping thefuck: pipx is not installed."
-    fi
-    if command -v tldr >/dev/null 2>&1; then
-        prompt_user "tldr cache update"
-        if [[ $? == 0 ]]; then
-            if ! tldr -u > /dev/null; then
-                echo "...tldr cache update failed; run 'tldr -u' again later."
-            fi
-        fi
-    fi
 }
 
 configure_bash_aliases() {
@@ -208,7 +178,6 @@ install_system_packages
 install_tmux_plugins
 install_ohmyzsh
 install_nvim
-install_other_packages
 configure_bash_aliases
 create_symlinks
 check_shell_workflow

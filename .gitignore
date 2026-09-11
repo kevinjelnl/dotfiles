@@ -1,0 +1,22 @@
+# Host- and runtime-specific data; keep these out of the yadm repository.
+/.config/Code/
+/.config/github-copilot/
+/.config/rclone/
+/.config/systemd/user/
+/.config/yadm/config
+/.config/yadm/bootstrap.d/
+/.pi/agent/auth.json
+/.pi/agent/sessions/
+/.pi/agent/npm/
+/.pi/agent/git/
+/.pi/agent/extensions/
+
+# Private host state and nested workspaces.
+/.ssh/
+/.gnupg/
+/.docker/
+/repos/
+
+# Local caches and generated files.
+/.cache/
+/.config/thefuck/__pycache__/
