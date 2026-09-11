@@ -20,6 +20,7 @@ zsh
 zsh-autosuggestions
 python3-pip
 pipx
+tldr
 shellcheck
 yamllint
 neovim
