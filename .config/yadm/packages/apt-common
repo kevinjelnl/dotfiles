@@ -8,7 +8,6 @@ build-essential
 pkg-config
 tmux
 fzf
-lsd
 bat
 ripgrep
 tree
@@ -23,7 +22,6 @@ zsh
 zsh-autosuggestions
 python3-pip
 pipx
-tealdeer
 shellcheck
 yamllint
 nodejs
