@@ -12,7 +12,13 @@ if [[ "$(uname -s)" != Linux ]] || ! command -v apt-get >/dev/null 2>&1; then
     exit 1
 fi
 
-package_file="$HOME/.config/yadm/packages/apt-common"
+if [[ -n "${SUDO_USER:-}" ]]; then
+    package_home=$(getent passwd "$SUDO_USER" | cut -d: -f6)
+else
+    package_home="$HOME"
+fi
+
+package_file="$package_home/.config/yadm/packages/apt-common"
 if [[ ! -r "$package_file" ]]; then
     echo "Missing package manifest: $package_file" >&2
     exit 1
