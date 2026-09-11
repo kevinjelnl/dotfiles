@@ -4,8 +4,6 @@ git
 curl
 gnupg
 ca-certificates
-build-essential
-pkg-config
 tmux
 fzf
 bat
@@ -24,6 +22,4 @@ python3-pip
 pipx
 shellcheck
 yamllint
-nodejs
-npm
 neovim
