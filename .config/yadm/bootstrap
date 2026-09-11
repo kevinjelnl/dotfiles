@@ -49,17 +49,19 @@ install_system_packages() {
         return 0
     fi
 
-    if [[ $EUID -eq 0 ]] || sudo -n true 2>/dev/null; then
+    prompt_user "system packages"
+    if [[ $? == 1 ]]; then return 1; fi
+
+    if [[ $EUID -eq 0 ]]; then
+        SYSTEM_INSTALL_ACCESS=1
+    elif sudo -v; then
         SYSTEM_INSTALL_ACCESS=1
     else
         SYSTEM_INSTALL_ACCESS=0
     fi
 
-    prompt_user "system packages"
-    if [[ $? == 1 ]]; then return 1; fi
-
     if [[ $SYSTEM_INSTALL_ACCESS != 1 ]]; then
-        echo "...cannot install system packages: this account has no sudo access."
+        echo "...cannot install system packages: sudo authentication failed or access is not granted."
         echo "Ask an administrator to run:"
         echo "  $SYSTEM_INSTALLER"
         echo "Then run 'yadm bootstrap' again as $USER."
@@ -70,7 +72,7 @@ install_system_packages() {
     if [[ $EUID -eq 0 ]]; then
         "$SYSTEM_INSTALLER" || return 1
     else
-        sudo -n "$SYSTEM_INSTALLER" || return 1
+        sudo "$SYSTEM_INSTALLER" || return 1
     fi
 }
 
