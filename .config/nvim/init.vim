@@ -186,7 +186,7 @@ set termguicolors
 let g:gruvbox_italic = 0
 let g:gruvbox_contrast_dark = 'medium'
 set background=dark
-colorscheme gruvbox
+silent! colorscheme gruvbox
 hi Normal guibg=NONE ctermbg=NONE
 " change background of cursorline
 hi CursorLine guibg=#212121
