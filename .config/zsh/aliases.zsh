@@ -27,6 +27,11 @@ if type nvim > /dev/null 2>&1; then
   alias vim="nvim"
   alias vi="nvim"
 fi
+
+# Always start Pi in fullscreen TUI mode.
+if command -v pi >/dev/null 2>&1; then
+  alias pi='command pi --tui-mode fullscreen'
+fi
 # use batcat if available
 if type batcat > /dev/null 2>&1; then
   alias cat="batcat"
