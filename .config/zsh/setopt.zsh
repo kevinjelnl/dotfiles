@@ -1,6 +1,6 @@
 # history
 HISTFILE=$HOME/.history
-HISTSIZE=4096
+HISTSIZE=100000
 SAVEHIST=$HISTSIZE
 
 setopt HIST_IGNORE_ALL_DUPS
@@ -13,3 +13,11 @@ setopt hist_ignore_dups # Do not write events to history that are duplicates of 
 setopt hist_reduce_blanks # Remove extra blanks from each command line being added to history
 setopt hist_verify # don't execute, just expand history
 setopt hist_expire_dups_first # when trimming history, lose oldest duplicates first
+
+# Refresh from other shells before Ctrl-R searches.
+_history_search_all() {
+  fc -R "$HISTFILE"
+  zle history-incremental-search-backward
+}
+zle -N _history_search_all
+bindkey '^R' _history_search_all
