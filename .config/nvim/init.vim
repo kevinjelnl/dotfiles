@@ -12,6 +12,16 @@ set signcolumn=yes
 set updatetime=250
 set timeoutlen=500
 set completeopt=menuone,noinsert,noselect
+set scrolloff=6
+set sidescrolloff=8
+if exists('+inccommand')
+      set inccommand=nosplit
+endif
+set undofile
+if has('nvim')
+      let &undodir = stdpath('state') . '/undo'
+      call mkdir(&undodir, 'p')
+endif
 set title
 let mapleader = " "
 
@@ -25,7 +35,7 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 set showmode 
 set showcmd
 set autoindent
-set laststatus=2 statusline=%F
+set laststatus=3 statusline=%F
 
 " FOLDING
 set foldmethod=indent
@@ -46,6 +56,9 @@ endif
 set cmdheight=2
 set incsearch  " search like modern browser
 set showmatch  " show matching brackets
+" Escape clears the current search highlight without deleting search history.
+nnoremap <silent> <Esc> :nohlsearch<CR>
+inoremap <silent> <Esc> <Esc>:nohlsearch<CR>
 set expandtab " Use spaces instead of tabs
 set smarttab " Be smart when using tabs ;)
 set shiftwidth=4 " 1 tab == 4 spaces
@@ -78,6 +91,7 @@ Plug 'nvim-tree/nvim-web-devicons'
 Plug 'nvim-tree/nvim-tree.lua', { 'tag': 'compat-nvim-0.9' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
+Plug 'lewis6991/gitsigns.nvim'
 call plug#end()
 
 lua << EOF
@@ -138,6 +152,31 @@ end
 EOF
 
 lua << EOF
+local gitsigns_ok, gitsigns = pcall(require, 'gitsigns')
+if gitsigns_ok then
+      gitsigns.setup({
+            signs = {
+                  add = { text = '▎' },
+                  change = { text = '▎' },
+                  delete = { text = '▁' },
+                  topdelete = { text = '▔' },
+                  changedelete = { text = '▎' },
+            },
+            on_attach = function(bufnr)
+                  local function opts(desc)
+                        return { buffer = bufnr, desc = 'gitsigns: ' .. desc, noremap = true, silent = true }
+                  end
+                  vim.keymap.set('n', ']h', gitsigns.next_hunk, opts('next hunk'))
+                  vim.keymap.set('n', '[h', gitsigns.prev_hunk, opts('previous hunk'))
+                  vim.keymap.set('n', '<leader>hp', gitsigns.preview_hunk, opts('preview hunk'))
+                  vim.keymap.set('n', '<leader>hs', gitsigns.stage_hunk, opts('stage hunk'))
+                  vim.keymap.set('n', '<leader>hr', gitsigns.reset_hunk, opts('reset hunk'))
+            end,
+      })
+end
+EOF
+
+lua << EOF
 function _G.open_glow(path)
       local previous_tab = vim.api.nvim_get_current_tabpage()
       vim.cmd('tabnew')
@@ -172,6 +211,10 @@ nnoremap <silent> <C-h> <C-w>h
 nnoremap <silent> <C-j> <C-w>j
 nnoremap <silent> <C-k> <C-w>k
 nnoremap <silent> <C-l> <C-w>l
+
+" Open a compact terminal below the current editor.
+nnoremap <silent> <C-\\> :botright split<CR>:resize 12<CR>:terminal<CR>
+tnoremap <silent> <Esc><Esc> <C-\\><C-n>
 
 nnoremap <silent> <leader>ff :Telescope find_files<CR>
 nnoremap <silent> <leader>fb :Telescope buffers<CR>
@@ -237,12 +280,26 @@ let g:gruvbox_contrast_dark = 'medium'
 set background=dark
 silent! colorscheme gruvbox
 hi Normal guibg=NONE ctermbg=NONE
-" change background of cursorline
+" Kevinjel/tmux-inspired orange UI accents.
+hi Normal guifg=#ebdbb2 guibg=NONE
 hi CursorLine guibg=#212121
+hi CursorLineNr guifg=#d79921 gui=bold
+hi LineNr guifg=#665c54
+hi WinSeparator guifg=#d65d0e guibg=NONE ctermfg=166 ctermbg=NONE
+hi VertSplit guifg=#d65d0e guibg=NONE ctermfg=166 ctermbg=NONE
+hi StatusLine guifg=#1d2021 guibg=#d65d0e gui=bold
+hi StatusLineNC guifg=#d65d0e guibg=#3c3836
+hi Search guifg=#1d2021 guibg=#d79921 gui=bold
+hi IncSearch guifg=#1d2021 guibg=#fe8019 gui=bold
+hi Visual guibg=#504945
+hi Directory guifg=#83a598 gui=bold
+hi Pmenu guifg=#ebdbb2 guibg=#3c3836
+hi PmenuSel guifg=#1d2021 guibg=#d79921 gui=bold
+set fillchars+=vert:│,horiz:─,horizup:─,horizdown:─,vertleft:│,vertright:│,verthoriz:┼
 
 " activate the bottom lightline
 let g:lightline = {
-      \ 'colorscheme': 'one',
+      \ 'colorscheme': 'gruvbox',
       \ 'background': 'dark'
       \ }
 

@@ -15,6 +15,8 @@ The editor uses the warm orange `gruvbox` dark theme.
 | `s` in NvimTree | Open the selected file in a horizontal split |
 | `Ctrl-w v/s` in NvimTree | Open the selected file right/below |
 | `Ctrl-h/j/k/l` | Move between editor panes |
+| `Ctrl-\\` | Open a terminal below the current pane |
+| `Esc Esc` in terminal mode | Return to normal mode |
 | `Space e` | Toggle the file tree (leader-key alternative) |
 | `Space f` | Reveal the current file in the file tree (leader-key alternative) |
 | `Space ff` | Find files with Telescope |
@@ -25,6 +27,10 @@ The editor uses the warm orange `gruvbox` dark theme.
 | `Space ap` | Jump to the previous lint diagnostic |
 | `Space ad` | Show details for the current diagnostic |
 | `Space af` | Apply the configured linter fix |
+| `]h` / `[h` | Next/previous Git hunk |
+| `Space hp` | Preview the current Git hunk |
+| `Space hs` | Stage the current Git hunk |
+| `Space hr` | Reset the current Git hunk |
 
 ## Editing
 
