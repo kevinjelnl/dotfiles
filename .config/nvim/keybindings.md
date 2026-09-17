@@ -9,8 +9,14 @@ The editor uses the warm orange `gruvbox` dark theme.
 | Keys | Action |
 | --- | --- |
 | `Space ?` | Open this reference |
-| `Space e` | Toggle the file tree |
-| `Space f` | Reveal the current file in the file tree |
+| `Ctrl-n` / `F2` | Toggle the file tree |
+| `Ctrl-f` / `F3` | Reveal the current file in the file tree |
+| `v` / `Shift-Enter` in NvimTree | Open the selected file in a vertical split |
+| `s` in NvimTree | Open the selected file in a horizontal split |
+| `Ctrl-w v/s` in NvimTree | Open the selected file right/below |
+| `Ctrl-h/j/k/l` | Move between editor panes |
+| `Space e` | Toggle the file tree (leader-key alternative) |
+| `Space f` | Reveal the current file in the file tree (leader-key alternative) |
 | `Space ff` | Find files with Telescope |
 | `Space fb` | Search open buffers with Telescope |
 | `Space fg` | Search text in the project with Telescope |

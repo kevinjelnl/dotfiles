@@ -83,9 +83,40 @@ call plug#end()
 lua << EOF
 local ok, nvim_tree = pcall(require, 'nvim-tree')
 if ok then
+      local function nvim_tree_on_attach(bufnr)
+            local api = require('nvim-tree.api')
+            api.map.on_attach.default(bufnr)
+            local opts = {
+                  buffer = bufnr,
+                  noremap = true,
+                  silent = true,
+                  nowait = true,
+            }
+            vim.keymap.set('n', '<S-CR>', api.node.open.vertical, vim.tbl_extend('force', opts, {
+                  desc = 'nvim-tree: open in vertical split',
+            }))
+            vim.keymap.set('n', 'v', api.node.open.vertical, vim.tbl_extend('force', opts, {
+                  desc = 'nvim-tree: open in vertical split',
+            }))
+            vim.keymap.set('n', 's', api.node.open.horizontal, vim.tbl_extend('force', opts, {
+                  desc = 'nvim-tree: open in horizontal split',
+            }))
+            vim.keymap.set('n', '<C-w>v', api.node.open.vertical, vim.tbl_extend('force', opts, {
+                  desc = 'nvim-tree: open in vertical split',
+            }))
+            vim.keymap.set('n', '<C-w>s', api.node.open.horizontal, vim.tbl_extend('force', opts, {
+                  desc = 'nvim-tree: open in horizontal split',
+            }))
+      end
+
       nvim_tree.setup({
+            on_attach = nvim_tree_on_attach,
             sort = { sorter = 'case_sensitive' },
-            view = { width = 32, side = 'left', preserve_window_proportions = true },
+            view = {
+                  width = 32,
+                  side = 'left',
+                  preserve_window_proportions = true,
+            },
             renderer = { group_empty = true, highlight_git = true },
             filters = { dotfiles = false },
             actions = { open_file = { quit_on_open = false } },
@@ -130,6 +161,17 @@ EOF
 
 nnoremap <silent> <leader>e :NvimTreeToggle<CR>
 nnoremap <silent> <leader>f :NvimTreeFindFile<CR>
+" Quick file-tree controls without the leader key.
+nnoremap <silent> <C-n> :NvimTreeToggle<CR>
+nnoremap <silent> <F2> :NvimTreeToggle<CR>
+nnoremap <silent> <C-f> :NvimTreeFindFile<CR>
+nnoremap <silent> <F3> :NvimTreeFindFile<CR>
+
+" Move between editor panes without reaching for the mouse.
+nnoremap <silent> <C-h> <C-w>h
+nnoremap <silent> <C-j> <C-w>j
+nnoremap <silent> <C-k> <C-w>k
+nnoremap <silent> <C-l> <C-w>l
 
 nnoremap <silent> <leader>ff :Telescope find_files<CR>
 nnoremap <silent> <leader>fb :Telescope buffers<CR>
@@ -179,6 +221,13 @@ imap <silent><script><expr> <M-[> copilot#Previous()
 augroup nvim_tree_startup
       autocmd!
       autocmd VimEnter * if argc() == 0 | NvimTreeOpen | wincmd p | endif
+augroup END
+
+" Treat :q in the file tree as quitting Neovim, not closing only the tree.
+augroup nvim_tree_quit
+      autocmd!
+      autocmd FileType NvimTree cnoreabbrev <expr> <buffer> q getcmdtype() ==# ':' && getcmdline() ==# 'q' ? 'qa' : 'q'
+      autocmd FileType NvimTree nnoremap <silent> <buffer> q :qa<CR>
 augroup END
 
 syntax enable
