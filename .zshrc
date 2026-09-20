@@ -83,6 +83,7 @@ fi
 
 # User configuration
 
+export PATH="$HOME/.local/bin:$PATH"
 export EDITOR="${EDITOR:-$(command -v nvim || command -v vim || command -v vi)}"
 
 if command -v thefuck >/dev/null 2>&1; then
@@ -92,7 +93,6 @@ fi
 [[ -d "$HOME/.cargo/bin" ]] && export PATH="$PATH:$HOME/.cargo/bin"
 
 export XDG_CONFIG_HOME="$HOME/.config"
-export PATH="$HOME/.local/bin:$PATH"
 
 if [[ -r "$HOME/.config/shell/environment" ]]; then
     source "$HOME/.config/shell/environment"
