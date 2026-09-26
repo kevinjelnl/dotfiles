@@ -87,7 +87,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'github/copilot.vim'
 Plug 'dense-analysis/ale'
-Plug 'nvim-tree/nvim-web-devicons'
 Plug 'nvim-tree/nvim-tree.lua', { 'tag': 'compat-nvim-0.9' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
@@ -131,7 +130,22 @@ if ok then
                   side = 'left',
                   preserve_window_proportions = true,
             },
-            renderer = { group_empty = true, highlight_git = true },
+            renderer = {
+                  group_empty = true,
+                  highlight_git = true,
+                  icons = {
+                        show = {
+                              file = false,
+                              folder = false,
+                              folder_arrow = false,
+                              git = false,
+                              modified = false,
+                              hidden = false,
+                              diagnostics = false,
+                              bookmarks = false,
+                        },
+                  },
+            },
             filters = { dotfiles = false },
             actions = { open_file = { quit_on_open = false } },
       })
@@ -295,6 +309,9 @@ hi Visual guibg=#504945
 hi Directory guifg=#83a598 gui=bold
 hi Pmenu guifg=#ebdbb2 guibg=#3c3836
 hi PmenuSel guifg=#1d2021 guibg=#d79921 gui=bold
+hi GitSignsAdd guifg=#b8bb26 guibg=NONE
+hi GitSignsChange guifg=#d79921 guibg=NONE
+hi GitSignsDelete guifg=#fb4934 guibg=NONE
 set fillchars+=vert:│,horiz:─,horizup:─,horizdown:─,vertleft:│,vertright:│,verthoriz:┼
 
 " activate the bottom lightline

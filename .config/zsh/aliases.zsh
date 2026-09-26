@@ -54,8 +54,7 @@ alias tmr="tmux rename-session"
 
 # list all ze things
 if command -v lsd >/dev/null 2>&1; then
-  [[ "${LSD_ICON_MODE:-}" == always ]] || LSD_ICON_MODE=never
-  alias ls="lsd --icon $LSD_ICON_MODE"
+  alias ls="lsd --icon never"
 else
   alias ls="ls --color=auto"
 fi
