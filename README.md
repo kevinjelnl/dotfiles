@@ -51,11 +51,20 @@ tmux launches `/bin/zsh` for new windows and panes. Zsh then loads Oh My Zsh,
 the custom theme, aliases, functions, history settings, and other interactive
 configuration.
 
-The shared shell environment sets `LSD_ICON_MODE=always` for this dotfiles
-setup. Install and select the same Nerd Font in each local Windows Terminal and
-VS Code profile. Remote shells and containers inherit the setting, but the
-font is rendered by the local client. Use `LSD_ICON_MODE=never` or
-`ll-no-icons` when the local terminal lacks Nerd Font glyphs.
+The shared shell environment keeps `ls` and `ll` icon-free for reliable
+rendering across WSL, SSH, containers, and local terminals. If `lsd` is
+available, `ls-icons` remains an explicit opt-in command.
+
+A Nerd Font is therefore not required by the shell or Neovim. If you prefer a
+consistent coding font, install the normal JetBrains Mono package on graphical
+Linux hosts:
+
+```bash
+sudo apt install fonts-jetbrains-mono
+```
+
+For Windows Terminal, install and select the font on Windows. Remote shells
+and containers use the font rendered by the local terminal client.
 
 To bypass any future host-specific tmux automation during recovery:
 
@@ -136,9 +145,34 @@ Bootstrap preserves an existing `~/.bash_aliases` and appends one idempotent
 block that loads `.config/zsh/aliases.zsh`. If the file is absent, bootstrap
 creates it. The existing Bash startup files remain unmanaged.
 
+## Host-specific configuration
+
+Yadm alternate files allow a configuration to be selected for a local class
+without using per-host branches. For example, a Pop!_OS-only Alacritty file
+can be named:
+
+```text
+.config/alacritty/alacritty.toml##class.popos
+```
+
+Set the class only on the Pop!_OS machine and refresh alternates:
+
+```bash
+yadm config local.class popos
+yadm alt
+```
+
+The active path remains `.config/alacritty/alacritty.toml`. Other machines can
+use a `##default` alternate or simply have no Alacritty configuration. Font
+installation itself remains host-specific; font binaries are not stored in
+Yadm.
+
 ## Neovim tools
 
-GitHub Copilot is installed through vim-plug. Run `:Copilot auth` in Neovim;
+GitHub Copilot is installed through vim-plug. Install the configured plugins
+with `:PlugInstall`. Gitsigns is pinned to a Neovim 0.9-compatible release and
+shows added, changed, and deleted lines in the sign column. Run `:Copilot auth`
+in Neovim;
 on a headless VPS it prints a URL and one-time code, which can be completed in
 a browser on another device. ALE provides diagnostics and formatting through
 the tools available on `PATH` or in a project. Ruff handles Python, ShellCheck
@@ -155,12 +189,23 @@ one, and `Space af` to apply the configured formatter or fix.
 
 ## Updating
 
-Pull configuration changes and re-run the bootstrap:
+Pull configuration changes and re-run the bootstrap when needed:
 
 ```bash
-yadm pull
+yadm pull --ff-only
 yadm bootstrap
 ```
+
+The default bootstrap does not install system packages. On a Debian/Ubuntu
+host where Apt and sudo are allowed, opt into the shared package manifest:
+
+```bash
+YADM_INSTALL_SYSTEM_PACKAGES=1 yadm bootstrap
+```
+
+Run Yadm as the normal user; do not run the bootstrap as root. The package
+manifest is intentionally lightweight and excludes Docker, Node/npm,
+`build-essential`, desktop packages, and project-specific dependencies.
 
 Review changes before committing them:
 
