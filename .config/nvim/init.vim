@@ -79,9 +79,8 @@ set mouse=a "enable mouse mode (:
 " set the plugin path
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'morhetz/gruvbox'
+Plug 'folke/tokyonight.nvim'
 Plug 'junegunn/vim-easy-align'
-Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
@@ -91,6 +90,8 @@ Plug 'nvim-tree/nvim-tree.lua', { 'tag': 'compat-nvim-0.9' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 Plug 'lewis6991/gitsigns.nvim', { 'tag': 'v0.9.0' }
+Plug 'nvim-treesitter/nvim-treesitter', { 'tag': 'v0.9.3' }
+Plug 'MeanderingProgrammer/render-markdown.nvim'
 call plug#end()
 
 lua << EOF
@@ -190,28 +191,6 @@ if gitsigns_ok then
 end
 EOF
 
-lua << EOF
-function _G.open_glow(path)
-      local previous_tab = vim.api.nvim_get_current_tabpage()
-      vim.cmd('tabnew')
-      local glow_tab = vim.api.nvim_get_current_tabpage()
-      vim.fn.termopen({ 'glow', '-p', path }, {
-            on_exit = function()
-                  vim.schedule(function()
-                        if vim.api.nvim_tabpage_is_valid(glow_tab) then
-                              vim.api.nvim_set_current_tabpage(glow_tab)
-                              vim.cmd('tabclose!')
-                        end
-                        if vim.api.nvim_tabpage_is_valid(previous_tab) then
-                              vim.api.nvim_set_current_tabpage(previous_tab)
-                        end
-                  end)
-            end,
-      })
-      vim.cmd('startinsert')
-end
-EOF
-
 nnoremap <silent> <leader>e :NvimTreeToggle<CR>
 nnoremap <silent> <leader>f :NvimTreeFindFile<CR>
 " Quick file-tree controls without the leader key.
@@ -237,10 +216,23 @@ nnoremap <silent> <leader>an :ALENext<CR>
 nnoremap <silent> <leader>ap :ALEPrevious<CR>
 nnoremap <silent> <leader>ad :ALEDetail<CR>
 nnoremap <silent> <leader>af :ALEFix<CR>
-command! -bar Glow if executable('glow') | call v:lua.open_glow(expand('%:p')) | else | echoerr 'Glow is not installed; check that it is on PATH.' | endif
 command! Keybindings execute 'edit ' . fnameescape(expand('~/.config/nvim/keybindings.md'))
 nnoremap <silent> <leader>? :Keybindings<CR>
-nnoremap <silent> <leader>mv :Glow<CR>
+nnoremap <silent> <leader>mv :RenderMarkdown toggle<CR>
+
+lua << EOF
+local render_markdown_ok, render_markdown = pcall(require, 'render-markdown')
+if render_markdown_ok then
+      render_markdown.setup({
+            file_types = { 'markdown' },
+      })
+end
+EOF
+
+augroup render_markdown_setup
+      autocmd!
+      autocmd FileType markdown setlocal conceallevel=2 concealcursor=nc
+augroup END
 
 let g:ale_completion_enabled = 0
 let g:ale_sign_error = 'E>'
@@ -289,35 +281,17 @@ augroup END
 
 syntax enable
 set termguicolors
-let g:gruvbox_italic = 0
-let g:gruvbox_contrast_dark = 'medium'
-set background=dark
-silent! colorscheme gruvbox
-hi Normal guibg=NONE ctermbg=NONE
-" Kevinjel/tmux-inspired orange UI accents.
-hi Normal guifg=#ebdbb2 guibg=NONE
-hi CursorLine guibg=#212121
-hi CursorLineNr guifg=#d79921 gui=bold
-hi LineNr guifg=#665c54
-hi WinSeparator guifg=#d65d0e guibg=NONE ctermfg=166 ctermbg=NONE
-hi VertSplit guifg=#d65d0e guibg=NONE ctermfg=166 ctermbg=NONE
-hi StatusLine guifg=#1d2021 guibg=#d65d0e gui=bold
-hi StatusLineNC guifg=#d65d0e guibg=#3c3836
-hi Search guifg=#1d2021 guibg=#d79921 gui=bold
-hi IncSearch guifg=#1d2021 guibg=#fe8019 gui=bold
-hi Visual guibg=#504945
-hi Directory guifg=#83a598 gui=bold
-hi Pmenu guifg=#ebdbb2 guibg=#3c3836
-hi PmenuSel guifg=#1d2021 guibg=#d79921 gui=bold
-hi GitSignsAdd guifg=#b8bb26 guibg=NONE
-hi GitSignsChange guifg=#d79921 guibg=NONE
-hi GitSignsDelete guifg=#fb4934 guibg=NONE
-set fillchars+=vert:│,horiz:─,horizup:─,horizdown:─,vertleft:│,vertright:│,verthoriz:┼
-
-" activate the bottom lightline
-let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
-      \ 'background': 'dark'
-      \ }
-
+lua << EOF
+local tokyonight_ok, tokyonight = pcall(require, 'tokyonight')
+if tokyonight_ok then
+      tokyonight.setup({
+            style = 'night',
+            transparent = false,
+            terminal_colors = true,
+      })
+      vim.cmd.colorscheme('tokyonight')
+else
+      vim.cmd.colorscheme('default')
+end
+EOF
 

@@ -2,7 +2,7 @@
 
 The leader key is `Space`.
 
-The editor uses the warm orange `gruvbox` dark theme.
+The editor uses the `tokyonight.nvim` dark colorscheme.
 
 ## Navigation and files
 
@@ -22,7 +22,7 @@ The editor uses the warm orange `gruvbox` dark theme.
 | `Space ff` | Find files with Telescope |
 | `Space fb` | Search open buffers with Telescope |
 | `Space fg` | Search text in the project with Telescope |
-| `Space mv` | Render the current Markdown file with Glow |
+| `Space mv` | Toggle rendered Markdown in the current buffer |
 | `Space an` | Jump to the next lint diagnostic |
 | `Space ap` | Jump to the previous lint diagnostic |
 | `Space ad` | Show details for the current diagnostic |
@@ -62,7 +62,7 @@ code there.
 | `:PlugUpdate` | Update configured plugins |
 | `:Copilot auth` | Authenticate GitHub Copilot |
 | `:ALEInfo` | Show active linters and their status |
-| `:Glow` | Render the current file with Glow |
+| `:RenderMarkdown toggle` | Toggle rendered Markdown in the current buffer |
 
 ALE uses tools available in the project or on `PATH`. Python, shell, and YAML
 are ready when `ruff`, `shellcheck`, and `yamllint` are installed. For web
@@ -75,8 +75,8 @@ npm install --save-dev eslint prettier htmlhint stylelint
 Then use `Space an`/`Space ap` for diagnostics and `Space af` to format or fix
 the current file.
 
-Glow is an external command. Install it through the system package setup, then
-use `mdview file.md` from the shell or `Space mv` inside Neovim. The Neovim
-preview opens in a full tab; press `q` to leave Glow and return to your editor.
+Markdown rendering is provided inside the editing buffer by
+`render-markdown.nvim` and does not require an external Markdown viewer. The
+Neovim configuration uses the `tokyonight.nvim` dark colorscheme.
 
 Mappings use normal mode unless marked otherwise. `Space p` is visual mode only.

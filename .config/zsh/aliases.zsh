@@ -3,8 +3,6 @@ alias diskspace="du -hxs | sort -rn"
 if command -v uv >/dev/null 2>&1; then
   alias py='uv run python'
 fi
-alias mdview='glow -p'
-
 if command -v xsel >/dev/null 2>&1; then
   alias pbcopy='xsel -ib'
 fi
