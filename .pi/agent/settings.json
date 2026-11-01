@@ -1,8 +1,22 @@
 {
-  "lastChangelogVersion": "1.2.0",
+  "lastChangelogVersion": "1.4.0",
+  "theme": "dark",
   "defaultProvider": "github-copilot",
-  "defaultModel": "gpt-5.6-luna",
+  "defaultModel": "gpt-6-luna",
   "packages": [
-    "git:github.com/kevinjelnl/pi-latest-reply"
-  ]
+    "https://github.com/kevinjelnl/pi-interactive-subagents",
+    "npm:@dietrichgebert/ponytail"
+  ],
+  "extensions": [
+    "~/pi-latest-reply/extensions/latest-reply.ts"
+  ],
+  "piLatestReply": {
+    "width": "98%",
+    "maxHeight": "96%"
+  },
+  "hideThinkingBlock": false,
+  "terminal": {
+    "showTerminalProgress": true
+  },
+  "enableInstallTelemetry": false
 }

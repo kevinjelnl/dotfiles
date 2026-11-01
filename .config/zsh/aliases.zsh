@@ -36,6 +36,8 @@ if type batcat > /dev/null 2>&1; then
 fi
 
 # tmux settings
+# Bash may already define tmux as an alias; remove it before defining the wrapper.
+unalias tmux 2>/dev/null || true
 tmux() {
   if (( $# == 0 )); then
     command tmux -u new-session -A -s main
