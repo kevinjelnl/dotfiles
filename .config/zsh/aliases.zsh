@@ -1,4 +1,21 @@
 # custom aliases
+if command -v apt-get >/dev/null 2>&1; then
+  alias update='sudo apt-get update && sudo apt-get upgrade'
+fi
+
+update_full() {
+  if command -v apt-get >/dev/null 2>&1; then
+    sudo apt-get update && sudo apt-get dist-upgrade && sudo apt-get autoremove || return
+  fi
+  if command -v flatpak >/dev/null 2>&1; then
+    flatpak update || return
+  fi
+  if command -v brew >/dev/null 2>&1; then
+    brew update && brew upgrade || return
+  fi
+}
+alias update-full='update_full'
+
 alias diskspace="du -hxs | sort -rn"
 if command -v uv >/dev/null 2>&1; then
   alias py='uv run python'
