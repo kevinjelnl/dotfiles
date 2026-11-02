@@ -1,5 +1,19 @@
 # custom functions
 
+# Resolve Pi's Tavily key, then launch directly on this terminal.
+unalias pi 2>/dev/null || true
+pi() {
+    if ! command -v pass-cli >/dev/null 2>&1; then
+        command pi --tui-mode fullscreen "$@"
+        return
+    fi
+
+    local tavily_api_key
+    tavily_api_key="$(pass-cli run --no-masking --env-file "$HOME/.config/pi/secrets.env" -- printenv TAVILY_API_KEY)" || return
+    [[ -n "$tavily_api_key" ]] || { print -u2 'Proton Pass did not resolve TAVILY_API_KEY.'; return 1; }
+    TAVILY_API_KEY="$tavily_api_key" command pi --tui-mode fullscreen "$@"
+}
+
 # create a new directory and enter it
 function md() {
     mkdir -p "$@" && cd "$_";

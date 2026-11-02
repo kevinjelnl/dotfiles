@@ -5,6 +5,7 @@
 /.config/systemd/user/
 /.config/yadm/config
 /.config/yadm/bootstrap.d/
+/.config/pi/secrets.env
 /.pi/agent/auth.json
 /.pi/agent/sessions/
 /.pi/agent/npm/

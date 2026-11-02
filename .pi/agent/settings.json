@@ -5,7 +5,8 @@
   "defaultModel": "gpt-6-luna",
   "packages": [
     "https://github.com/kevinjelnl/pi-interactive-subagents",
-    "npm:@dietrichgebert/ponytail"
+    "npm:@dietrichgebert/ponytail",
+    "npm:@tavily/pi-extension"
   ],
   "extensions": [
     "~/pi-latest-reply/extensions/latest-reply.ts"
