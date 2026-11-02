@@ -32,6 +32,22 @@ The editor uses the `tokyonight.nvim` dark colorscheme.
 | `Space hs` | Stage the current Git hunk |
 | `Space hr` | Reset the current Git hunk |
 
+## Splits and buffers
+
+In an editor buffer, create a split showing the current buffer with:
+
+| Keys / command | Action |
+| --- | --- |
+| `Ctrl-w v` | Create a vertical split to the right |
+| `Ctrl-w s` | Create a horizontal split below |
+| `:vsplit path/to/file` | Open a file in a vertical split |
+| `:split path/to/file` | Open a file in a horizontal split |
+| `:ls` then `:buffer 3` | List buffers, then open buffer 3 in the active pane |
+| `Ctrl-h/j/k/l` | Move focus between panes |
+
+From NvimTree, select a file and press `v` for a vertical split or `s` for
+a horizontal split. `Shift-Enter` also opens it vertically.
+
 ## Editing
 
 | Keys | Action |

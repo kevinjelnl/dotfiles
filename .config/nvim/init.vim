@@ -35,7 +35,7 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 set showmode 
 set showcmd
 set autoindent
-set laststatus=3 statusline=%F
+set laststatus=0 winbar=%F
 
 " FOLDING
 set foldmethod=indent
@@ -294,4 +294,11 @@ else
       vim.cmd.colorscheme('default')
 end
 EOF
+
+" Draw clear split borders; active and inactive pane bars use distinct colors.
+hi WinBar guifg=#1d2021 guibg=#d65d0e gui=bold
+hi WinBarNC guifg=#a89984 guibg=#3c3836
+hi WinSeparator guifg=#d65d0e guibg=#3c3836
+hi VertSplit guifg=#d65d0e guibg=#3c3836
+set fillchars+=vert:│,horiz:─,horizup:┴,horizdown:┬,vertleft:┤,vertright:├,verthoriz:┼
 
